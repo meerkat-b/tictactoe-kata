@@ -24,6 +24,4 @@ public class GameShould {
         game.start();
         verify(console).println("Hello!");
     }
-
-
 }
