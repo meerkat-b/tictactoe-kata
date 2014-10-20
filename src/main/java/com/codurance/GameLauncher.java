@@ -2,7 +2,6 @@ package com.codurance;
 
 public class GameLauncher {
     public static void main(String[] args) {
-        Game g = new Game();
-        g.start();
+        new Game().start();
     }
 }
