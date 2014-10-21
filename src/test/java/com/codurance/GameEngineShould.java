@@ -2,10 +2,12 @@ package com.codurance;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.verify;
@@ -21,6 +23,7 @@ public class GameEngineShould {
 	@Mock private Board board;
 	@Mock private Console console;
 	@Mock private InputHandler inputHandler;
+	@Mock private ComputerPlayer computerPlayer;
 
 	@InjectMocks
 	GameEngine gameEngine = new GameEngine();
@@ -51,7 +54,7 @@ public class GameEngineShould {
 
 	@Test public void
 	mark_the_top_left_of_the_board_with_the_players_move() {
-		when(inputHandler.getNextMove()).thenReturn(TOP_LEFT);
+		given(inputHandler.getNextMove()).willReturn(TOP_LEFT);
 
 		gameEngine.runGame(board);
 		verify(board).mark(inputHandler.getNextMove());
@@ -59,9 +62,15 @@ public class GameEngineShould {
 
 	@Test public void
 	mark_the_top_right_of_the_board_with_the_players_move() {
-		when(inputHandler.getNextMove()).thenReturn(TOP_RIGHT);
+		given(inputHandler.getNextMove()).willReturn(TOP_RIGHT);
 
 		gameEngine.runGame(board);
 		verify(board).mark(inputHandler.getNextMove());
+	}
+
+	@Test public void
+	allow_the_computer_to_take_a_turn() {
+		gameEngine.runGame(board);
+		verify(computerPlayer).getNextMove();
 	}
 }

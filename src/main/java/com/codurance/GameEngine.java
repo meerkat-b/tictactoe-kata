@@ -7,11 +7,15 @@ public class GameEngine {
 	private Console console;
 	private InputHandler inputHandler;
 	private Board board;
+	private ComputerPlayer computerPlayer;
 
-	public void runGame(Board board) {
+	public void runGame(Board newBoard) {
+		this.board = newBoard;
 		board.print();
+
 		console.println(MOVE_REQUEST);
-		int positionToMark = inputHandler.getNextMove();
-		board.mark(positionToMark);
+		board.mark(inputHandler.getNextMove());
+
+		computerPlayer.getNextMove();
 	}
 }
