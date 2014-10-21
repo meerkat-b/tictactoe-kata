@@ -23,6 +23,6 @@ public class GameShould {
 	@Test public void
 	run_the_game_engine_with_a_board() {
 		game.start();
-		verify(gameEngine).runGame(any(Board.class));
+		verify(gameEngine).runGame(new Board());
 	}
 }
