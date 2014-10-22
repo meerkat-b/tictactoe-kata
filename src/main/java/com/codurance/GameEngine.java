@@ -2,20 +2,43 @@ package com.codurance;
 
 public class GameEngine {
 
-	public static final String MOVE_REQUEST = "Please type the number of the place to mark";
+	private static final String MOVE_REQUEST = "Please type the number of the place to mark";
+	private static final boolean PLAYER_ONE = true;
+	private static final boolean PLAYER_TWO = false;
+
+	private boolean currentPlayer = PLAYER_ONE;
 
 	private Console console;
 	private InputHandler inputHandler;
-	private Board board;
 	private ComputerPlayer computerPlayer;
 
-	public void runGame(Board newBoard) {
-		this.board = newBoard;
-		board.print();
+	public void runGame(Board board) {
+		while(board.isInPlay()) {
+			board.print();
 
-		console.println(MOVE_REQUEST);
-		board.mark(inputHandler.getNextMove());
+			if(isPlayerOnesTurn()) {
+				console.println(MOVE_REQUEST);
+				board.mark(inputHandler.getNextMove());
+			}
 
-		computerPlayer.getNextMove();
+			if(isPlayerTwosTurn()) {
+				board.mark(computerPlayer.getNextMove());
+			}
+
+			switchPlayers();
+		}
+	}
+
+
+	private boolean isPlayerOnesTurn() {
+		return currentPlayer == PLAYER_ONE;
+	}
+
+	private boolean isPlayerTwosTurn() {
+		return currentPlayer == PLAYER_TWO;
+	}
+
+	private void switchPlayers() {
+		currentPlayer = !currentPlayer;
 	}
 }
