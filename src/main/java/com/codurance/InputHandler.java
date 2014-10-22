@@ -8,7 +8,7 @@ public class InputHandler {
 
 	private Scanner inputStream = new Scanner(System.in);
 
-	public int getNextMove() {
+	public int getNextPosition() {
 		throw new NotImplementedException();
 	}
 }

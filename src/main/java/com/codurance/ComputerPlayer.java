@@ -4,7 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class ComputerPlayer {
 
-	public int getNextMove() {
+	public int getNextPosition() {
 		return -1;
 	}
 }

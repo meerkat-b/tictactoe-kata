@@ -1,16 +1,11 @@
 package com.codurance;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.verification.VerificationMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -44,7 +39,7 @@ public class GameEngineShould {
 		given(board.isInPlay()).willReturn(true, false);
 
 		gameEngine.runGame(board);
-		verify(board).mark(any(POSITION));
+		verify(board).mark(anyString(), any(POSITION));
 	}
 
 	@Test public void
@@ -57,29 +52,29 @@ public class GameEngineShould {
 
 	@Test public void
 	mark_the_top_left_of_the_board_with_the_players_move() {
-		given(inputHandler.getNextMove()).willReturn(TOP_LEFT);
+		given(inputHandler.getNextPosition()).willReturn(TOP_LEFT);
 		given(board.isInPlay()).willReturn(true, false);
 
 		gameEngine.runGame(board);
-		verify(board).mark(inputHandler.getNextMove());
+		verify(board).mark(anyString(), eq(TOP_LEFT));
 	}
 
 	@Test public void
 	mark_the_top_right_of_the_board_with_the_players_move() {
-		given(inputHandler.getNextMove()).willReturn(TOP_RIGHT);
+		given(inputHandler.getNextPosition()).willReturn(TOP_RIGHT);
 		given(board.isInPlay()).willReturn(true, false);
 
 		gameEngine.runGame(board);
-		verify(board).mark(inputHandler.getNextMove());
+		verify(board).mark(anyString(), eq(TOP_RIGHT));
 	}
 
 	@Test public void
 	take_the_computers_turn_after_the_players_turn() {
 		given(board.isInPlay()).willReturn(true, true, true, false);
-		given(computerPlayer.getNextMove()).willReturn(TOP_LEFT);
+		given(computerPlayer.getNextPosition()).willReturn(TOP_LEFT);
 
 		gameEngine.runGame(board);
-		verify(board).mark(TOP_LEFT);
+		verify(board).mark(anyString(), eq(TOP_LEFT));
 	}
 
 	@Test public void
@@ -88,16 +83,15 @@ public class GameEngineShould {
 
 		gameEngine.runGame(board);
 		verify(board, times(6)).print();
-		verify(computerPlayer, times(3)).getNextMove();
-		verify(inputHandler, times(3)).getNextMove();
+		verify(computerPlayer, times(3)).getNextPosition();
+		verify(inputHandler, times(3)).getNextPosition();
 	}
 
-	@Ignore //this may not be the responsibility of the game engine but rather the board
 	@Test public void
-	not_make_more_than_nine_marks_on_a_board() {
-		given(board.isInPlay()).willReturn
-				(true, true, true, true, true, true, true, true, true, true, false);
+	mark_an_x_for_one_player_and_an_o_for_the_other() {
+		given(board.isInPlay()).willReturn(true,true,true,true,true,true,true,true,false);
 		gameEngine.runGame(board);
-		verify(board, atMost(9)).mark(any(POSITION));
+		verify(board, times(4)).mark(eq("X"), any(POSITION));
+		verify(board, times(4)).mark(eq("O"), any(POSITION));
 	}
 }
