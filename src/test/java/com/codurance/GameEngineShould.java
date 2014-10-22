@@ -17,6 +17,8 @@ public class GameEngineShould {
 	private static final int TOP_LEFT = 1;
 	private static final int TOP_RIGHT = 3;
 	private static final Class<Integer> POSITION = Integer.TYPE;
+	public static final String MOVE_REQUEST = "Please type the number of the place to mark";
+	public static final String TIE_GAME = "Tie game!";
 
 	@Mock private Board board;
 	@Mock private Console console;
@@ -29,33 +31,33 @@ public class GameEngineShould {
 	@Test public void
 	print_the_game_board() {
 		given(board.isInPlay()).willReturn(true, false);
-
 		gameEngine.runGame(board);
+
 		verify(board).print();
 	}
 
 	@Test public void
 	make_a_mark_on_a_board() {
 		given(board.isInPlay()).willReturn(true, false);
-
 		gameEngine.runGame(board);
+
 		verify(board).mark(anyString(), any(POSITION));
 	}
 
 	@Test public void
 	ask_the_player_for_their_move() {
 		given(board.isInPlay()).willReturn(true, false);
-
 		gameEngine.runGame(board);
-		verify(console).println("Please type the number of the place to mark");
+
+		verify(console).println(MOVE_REQUEST);
 	}
 
 	@Test public void
 	mark_the_top_left_of_the_board_with_the_players_move() {
 		given(inputHandler.getNextPosition()).willReturn(TOP_LEFT);
 		given(board.isInPlay()).willReturn(true, false);
-
 		gameEngine.runGame(board);
+
 		verify(board).mark(anyString(), eq(TOP_LEFT));
 	}
 
@@ -80,8 +82,8 @@ public class GameEngineShould {
 	@Test public void
 	keep_playing_turns_until_the_board_is_no_longer_in_play() {
 		given(board.isInPlay()).willReturn(true,true,true,true,true,true,false);
-
 		gameEngine.runGame(board);
+
 		verify(board, times(6)).print();
 		verify(computerPlayer, times(3)).getNextPosition();
 		verify(inputHandler, times(3)).getNextPosition();
@@ -91,7 +93,17 @@ public class GameEngineShould {
 	mark_an_x_for_one_player_and_an_o_for_the_other() {
 		given(board.isInPlay()).willReturn(true,true,true,true,true,true,true,true,false);
 		gameEngine.runGame(board);
+
 		verify(board, times(4)).mark(eq("X"), any(POSITION));
 		verify(board, times(4)).mark(eq("O"), any(POSITION));
+	}
+	
+	@Test public void
+	declare_a_tie_if_the_game_is_not_won() {
+		given(board.isInPlay()).willReturn(true,true,true,true,true,true,true,true,true,false);
+		given(board.hasNoWinner()).willReturn(true);
+		gameEngine.runGame(board);
+
+		verify(console).println(TIE_GAME);
 	}
 }
