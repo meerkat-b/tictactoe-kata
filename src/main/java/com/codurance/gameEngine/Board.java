@@ -6,4 +6,8 @@ public class Board {
 	public boolean isInPlay() {
 		throw new NotImplementedException();
 	}
+
+	public void print() {
+
+	}
 }

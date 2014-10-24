@@ -10,15 +10,18 @@ public class SinglePlayerGameEngine implements GameEngine {
 
 	private Console console;
 	private InputHandler inputHandler;
-	private Player[] players;
 	private Board board;
+	private Player playerOne;
+	private Player playerTwo;
+	private Player currentPlayer;
 
 	@Override
 	public void runGame() {
-		requestTurnOrder();
-	}
-
-	private void requestTurnOrder() {
-		console.println(REQUEST_TURN_ORDER);
+		currentPlayer = playerOne;
+		while(board.isInPlay()) {
+			board.print();
+			currentPlayer.play(board);
+			currentPlayer = (currentPlayer==playerOne) ? playerTwo : playerOne;
+		}
 	}
 }
