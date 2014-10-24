@@ -1,5 +1,10 @@
 package com.codurance;
 
+import com.codurance.IO.Console;
+import com.codurance.IO.InputHandler;
+import com.codurance.gameEngine.MultiPlayerGameEngine;
+import com.codurance.gameEngine.SinglePlayerGameEngine;
+
 public class Game {
 
 	private static final String SINGLE_PLAYER = "s";
@@ -19,21 +24,19 @@ public class Game {
 	}
 
 	public void start() {
-		requestGameType();
-		runGame();
+		run(requestGameType());
 	}
 
-	private void runGame() {
-		String gameType = inputHandler.nextInput();
+	private void run(String gameType) {
 		if (gameType == SINGLE_PLAYER) {
 			singlePlayerGameEngine.runGame();
-		}
-		if (gameType == MULTI_PLAYER) {
+		} else if (gameType == MULTI_PLAYER) {
 			multiPlayerGameEngine.runGame();
 		}
 	}
 
-	private void requestGameType() {
+	private String requestGameType() {
 		console.println(REQUEST_GAMETYPE);
+		return inputHandler.getGameType();
 	}
 }

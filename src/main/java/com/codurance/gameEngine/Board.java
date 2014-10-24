@@ -1,9 +1,9 @@
-package com.codurance;
+package com.codurance.gameEngine;
 
 import org.apache.commons.lang.NotImplementedException;
 
-public class InputHandler {
-	public String nextInput() {
+public class Board {
+	public boolean isInPlay() {
 		throw new NotImplementedException();
 	}
 }

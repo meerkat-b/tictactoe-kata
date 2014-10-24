@@ -1,4 +1,4 @@
-package com.codurance;
+package com.codurance.IO;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

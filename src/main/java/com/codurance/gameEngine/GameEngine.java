@@ -1,4 +1,4 @@
-package com.codurance;
+package com.codurance.gameEngine;
 
 public interface GameEngine {
 
