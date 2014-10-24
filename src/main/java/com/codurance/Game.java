@@ -2,8 +2,11 @@ package com.codurance;
 
 import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
+import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
 import com.codurance.gameEngine.SinglePlayerGameEngine;
+import com.codurance.players.ComputerPlayer;
+import com.codurance.players.HumanPlayer;
 
 public class Game {
 
@@ -17,7 +20,8 @@ public class Game {
 	private InputHandler inputHandler;
 
 	public Game() {
-		singlePlayerGameEngine = new SinglePlayerGameEngine();
+		singlePlayerGameEngine = new SinglePlayerGameEngine
+				(new Board(), new HumanPlayer(), new ComputerPlayer(), console, inputHandler);
 		multiPlayerGameEngine = new MultiPlayerGameEngine();
 		console = new Console();
 		inputHandler = new InputHandler();
