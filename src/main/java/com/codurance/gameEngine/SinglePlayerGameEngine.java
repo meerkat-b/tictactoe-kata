@@ -28,11 +28,14 @@ public class SinglePlayerGameEngine implements GameEngine {
 	@Override
 	public void runGame() {
 		setUpPlayers();
+
 		while(board.isInPlay()) {
 			board.print();
 			currentPlayer.play(board);
 			switchPlayers();
 		}
+
+		board.declareWinner();
 	}
 
 	private void setUpPlayers() {
@@ -50,6 +53,6 @@ public class SinglePlayerGameEngine implements GameEngine {
 	}
 
 	private void switchPlayers() {
-		currentPlayer = (currentPlayer== humanPlayer) ? computerPlayer : humanPlayer;
+		currentPlayer = (currentPlayer == humanPlayer) ? computerPlayer : humanPlayer;
 	}
 }

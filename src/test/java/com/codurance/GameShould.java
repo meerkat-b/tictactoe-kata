@@ -2,17 +2,11 @@ package com.codurance;
 
 import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
-import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
 import com.codurance.gameEngine.SinglePlayerGameEngine;
-import com.codurance.players.ComputerPlayer;
-import com.codurance.players.HumanPlayer;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -22,7 +16,7 @@ import static org.mockito.Mockito.verify;
 
 public class GameShould {
 
-	public static final String REQUEST_GAMETYPE = "[S]ingle humanPlayer or [M]ulti-player?";
+	public static final String REQUEST_GAMETYPE = "[S]ingle-player or [M]ulti-player?";
 	public static final String SINGLE_PLAYER = "s";
 	public static final String MULTI_PLAYER = "m";
 
@@ -39,7 +33,7 @@ public class GameShould {
 		inputHandler = mock(InputHandler.class);
 		multiPlayerGameEngine = mock(MultiPlayerGameEngine.class);
 
-		game = new Game();
+		game = new Game(singlePlayerGameEngine, multiPlayerGameEngine, console, inputHandler);
 	}
 
 	@Test public void

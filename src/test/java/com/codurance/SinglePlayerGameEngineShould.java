@@ -84,4 +84,12 @@ public class SinglePlayerGameEngineShould {
 		verify(humanPlayer, times(2)).play(board);
 		verify(computerPlayer, times(2)).play(board);
 	}
+
+	@Test public void
+	declare_the_winner_of_a_game() {
+		given(board.isInPlay()).willReturn(true,true,true,true,true, false);
+		singlePlayerGameEngine.runGame();
+
+		verify(board).declareWinner();
+	}
 }

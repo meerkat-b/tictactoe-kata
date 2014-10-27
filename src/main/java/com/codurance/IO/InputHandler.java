@@ -8,7 +8,7 @@ public class InputHandler {
 	}
 
 	public String getGameType() {
-		throw new NotImplementedException();
+		return "";
 	}
 
 	public int getTurnOrder() {
