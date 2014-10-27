@@ -5,11 +5,9 @@ import com.codurance.IO.InputHandler;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
 import com.codurance.gameEngine.SinglePlayerGameEngine;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
