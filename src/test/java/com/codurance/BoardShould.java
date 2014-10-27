@@ -58,6 +58,11 @@ public class BoardShould {
 	}
 
 	@Test public void
+	not_allow_2_marks_on_the_same_spot() {
+
+	}
+
+	@Test public void
 	print_a_fully_played_board() {
 		board.mark(1,X);
 		board.mark(2,O);

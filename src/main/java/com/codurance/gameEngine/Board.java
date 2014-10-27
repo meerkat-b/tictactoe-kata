@@ -4,16 +4,17 @@ import com.codurance.IO.Console;
 import org.apache.commons.lang.NotImplementedException;
 
 public class Board {
-	private final int TOP = 0, LEFT = 0, EMPTY = 0;
-	private final int CENTER = 1, MIDDLE = 1, X = 1;
-	private final int RIGHT = 2, BOTTOM = 2, O = 2;
+	public static final int ROW_SIZE = 3;
+	private final int EMPTY = 0;
+	private final int X = 1;
+	private final int O = 2;
 	private Console console;
-	private int[][] board;
+	private int[] board;
 
 
 	public Board(Console console) {
 		this.console = console;
-		board = new int[3][3];
+		board = new int[9];
 	}
 
 	public boolean isInPlay() {
@@ -24,17 +25,17 @@ public class Board {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("\n");
 
-		for (int row = 0; row < board.length; row++) {
-			for (int column = 0; column < board[row].length; column++) {
-				if(board[row][column]==EMPTY)  {
-					stringBuilder.append(" -");
-				} else if (board[row][column]==X) {
-					stringBuilder.append(" x");
-				} else if (board[row][column]==O) {
-					stringBuilder.append(" o");
-				}
+		for(int position = 0; position < board.length; position++) {
+			if(board[position]==EMPTY)  {
+				stringBuilder.append(" -");
+			} else if (board[position]==X) {
+				stringBuilder.append(" x");
+			} else if (board[position]==O) {
+				stringBuilder.append(" o");
 			}
-			stringBuilder.append("\n");
+			if (position % ROW_SIZE == 2) {
+				stringBuilder.append("\n");
+			}
 		}
 		console.print(stringBuilder.toString());
 	}
@@ -43,34 +44,6 @@ public class Board {
 	}
 
 	public void mark(int position, int marker) {
-		switch(position) {
-			case 1:
-				board[TOP][LEFT]=marker;
-				break;
-			case 2:
-				board[TOP][CENTER]=marker;
-				break;
-			case 3:
-				board[TOP][RIGHT]=marker;
-				break;
-			case 4:
-				board[MIDDLE][LEFT]=marker;
-				break;
-			case 5:
-				board[MIDDLE][CENTER]=marker;
-				break;
-			case 6:
-				board[MIDDLE][RIGHT]=marker;
-				break;
-			case 7:
-				board[BOTTOM][LEFT]=marker;
-				break;
-			case 8:
-				board[BOTTOM][CENTER]=marker;
-				break;
-			case 9:
-				board[BOTTOM][RIGHT]=marker;
-				break;
-		}
+		board[position-1]=marker;
 	}
 }
