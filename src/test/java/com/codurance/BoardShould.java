@@ -57,5 +57,23 @@ public class BoardShould {
 		);
 	}
 
-	
+	@Test public void
+	print_a_fully_played_board() {
+		board.mark(1,X);
+		board.mark(2,O);
+		board.mark(3,X);
+		board.mark(4,O);
+		board.mark(5,X);
+		board.mark(6,X);
+		board.mark(7,O);
+		board.mark(8,X);
+		board.mark(9,O);
+		board.print();
+
+		verify(console).print("\n" +
+						" x o x\n" +
+						" o x x\n" +
+						" o x o\n"
+		);
+	}
 }
