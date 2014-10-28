@@ -77,6 +77,16 @@ public class BoardShould {
 	}
 
 	@Test public void
+	inform_if_there_is_a_diagonal_win_condition() {
+		board.mark(1, X);
+		board.mark(5, X);
+		board.mark(9, X);
+
+		board.declareWinner();
+		verify(console).println("X Wins!");
+	}
+
+	@Test public void
 	inform_if_a_column_of_Os_has_a_win_condition() {
 		board.mark(1, O);
 		board.mark(4, O);
