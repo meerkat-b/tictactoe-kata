@@ -27,9 +27,9 @@ public class Game {
 	}
 
 	private GameEngine gameType() {
-		return inputHandler.getGameType() == SINGLE_PLAYER ?
-				singlePlayerGameEngine :
-				multiPlayerGameEngine;
+		return inputHandler.getGameType().equals(SINGLE_PLAYER) ?
+				(SinglePlayerGameEngine) singlePlayerGameEngine :
+				(MultiPlayerGameEngine) multiPlayerGameEngine;
 	}
 
 }

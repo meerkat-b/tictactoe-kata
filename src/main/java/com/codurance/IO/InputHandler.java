@@ -18,7 +18,7 @@ public class InputHandler {
 		console.println("Please Select : Would you like to go [1]st or [2]nd?");
 		String turnOrder = console.nextLine();
 
-		return (turnOrder == "1" | turnOrder == "2") ?
+		return (turnOrder.equals("1") | turnOrder.equals("2")) ?
 				Integer.parseInt(turnOrder) : getTurnOrder();
 	}
 }

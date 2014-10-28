@@ -2,17 +2,21 @@ package com.codurance.IO;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Scanner;
+
 public class Console {
 
-	public void println(String messageToPrint) {
+	Scanner scanner = new Scanner(System.in);
 
+	public void println(String messageToPrint) {
+		System.out.println(messageToPrint);
 	}
 
 	public void print(String messageToPrint) {
-
+		System.out.print(messageToPrint);
 	}
 
 	public String nextLine() {
-		return "";
+		return scanner.nextLine();
 	}
 }

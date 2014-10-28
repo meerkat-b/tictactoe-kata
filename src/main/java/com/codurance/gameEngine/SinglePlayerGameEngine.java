@@ -26,6 +26,7 @@ public class SinglePlayerGameEngine implements GameEngine {
 
 	@Override
 	public void runGame() {
+		System.out.println("HELLO!");
 		setTurnOrder();
 
 		while(board.isInPlay()) {
