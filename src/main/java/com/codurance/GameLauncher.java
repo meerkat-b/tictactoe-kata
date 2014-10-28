@@ -11,7 +11,7 @@ import com.codurance.players.HumanPlayer;
 public class GameLauncher {
 	public static void main(String[] args) {
 		Console console = new Console();
-		InputHandler inputHandler = new InputHandler();
+		InputHandler inputHandler = new InputHandler(console);
 		Board board = new Board(console);
 
 		SinglePlayerGameEngine singlePlayerGameEngine = new SinglePlayerGameEngine(board, new HumanPlayer(), new ComputerPlayer(), console, inputHandler);

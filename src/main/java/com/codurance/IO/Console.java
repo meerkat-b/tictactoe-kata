@@ -11,4 +11,8 @@ public class Console {
 	public void print(String messageToPrint) {
 
 	}
+
+	public String nextLine() {
+		return "";
+	}
 }

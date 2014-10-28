@@ -9,7 +9,6 @@ import com.codurance.gameEngine.SinglePlayerGameEngine;
 public class Game {
 
 	private static final String SINGLE_PLAYER = "s";
-	private static final String REQUEST_GAMETYPE = "[S]ingle-player or [M]ulti-player?";
 
 	private SinglePlayerGameEngine singlePlayerGameEngine;
 	private MultiPlayerGameEngine multiPlayerGameEngine;
@@ -28,13 +27,9 @@ public class Game {
 	}
 
 	private GameEngine gameType() {
-		requestGameType();
 		return inputHandler.getGameType() == SINGLE_PLAYER ?
 				singlePlayerGameEngine :
 				multiPlayerGameEngine;
 	}
 
-	private void requestGameType() {
-		console.println(REQUEST_GAMETYPE);
-	}
 }

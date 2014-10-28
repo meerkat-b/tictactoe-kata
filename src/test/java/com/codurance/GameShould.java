@@ -14,7 +14,6 @@ import static org.mockito.Mockito.verify;
 
 public class GameShould {
 
-	public static final String REQUEST_GAMETYPE = "[S]ingle-player or [M]ulti-player?";
 	public static final String SINGLE_PLAYER = "s";
 	public static final String MULTI_PLAYER = "m";
 
@@ -32,13 +31,6 @@ public class GameShould {
 		multiPlayerGameEngine = mock(MultiPlayerGameEngine.class);
 
 		game = new Game(singlePlayerGameEngine, multiPlayerGameEngine, console, inputHandler);
-	}
-
-	@Test public void
-	ask_if_the_game_is_single_or_multi_player() {
-		game.start();
-
-		verify(console).println(REQUEST_GAMETYPE);
 	}
 
 	@Test public void
