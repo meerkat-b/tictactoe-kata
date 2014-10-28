@@ -5,6 +5,8 @@ import com.codurance.gameEngine.Board;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -13,7 +15,7 @@ public class BoardShould {
 	private static final int TOP_RIGHT = 3;
 	private static final int TOP_LEFT = 1;
 	private static final int X = 1;
-	private static final int O = 2;
+	private static final int O = 10;
 	private Console console = mock(Console.class);
 	private Board board;
 
@@ -45,19 +47,6 @@ public class BoardShould {
 	}
 
 	@Test public void
-	print_itself_after_two_plays_on_the_board() {
-		board.mark(TOP_RIGHT, X);
-		board.mark(TOP_LEFT, O);
-		board.print();
-
-		verify(console).print("\n" +
-						" o - x\n" +
-						" - - -\n" +
-						" - - -\n"
-		);
-	}
-
-	@Test public void
 	print_a_fully_played_board() {
 		board.mark(1,X);
 		board.mark(2,O);
@@ -75,5 +64,25 @@ public class BoardShould {
 						" o x x\n" +
 						" o x o\n"
 		);
+	}
+
+	@Test public void
+	inform_if_a_row_of_Xs_has_a_win_condition() {
+		board.mark(1, X);
+		board.mark(2, X);
+		board.mark(3, X);
+
+		board.declareWinner();
+		verify(console).println("X Wins!");
+	}
+
+	@Test public void
+	inform_if_a_column_of_Os_has_a_win_condition() {
+		board.mark(1, O);
+		board.mark(4, O);
+		board.mark(7, O);
+
+		board.declareWinner();
+		verify(console).println("O Wins!");
 	}
 }
