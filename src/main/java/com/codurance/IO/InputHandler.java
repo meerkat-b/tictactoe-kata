@@ -1,16 +1,10 @@
 package com.codurance.IO;
 
-import org.apache.commons.lang.NotImplementedException;
-
 public class InputHandler {
 	private Console console;
 
 	public InputHandler(Console console) {
 		this.console = console;
-	}
-
-	public String nextInput() {
-		throw new NotImplementedException();
 	}
 
 	public String getGameType() {
@@ -21,6 +15,10 @@ public class InputHandler {
 	}
 
 	public int getTurnOrder() {
-		throw new NotImplementedException();
+		console.println("Please Select : Would you like to go [1]st or [2]nd?");
+		String turnOrder = console.nextLine();
+
+		return (turnOrder == "1" | turnOrder == "2") ?
+				Integer.parseInt(turnOrder) : getTurnOrder();
 	}
 }

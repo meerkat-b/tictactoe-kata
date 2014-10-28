@@ -6,7 +6,6 @@ import com.codurance.players.Player;
 
 public class SinglePlayerGameEngine implements GameEngine {
 
-	private final String REQUEST_TURN_ORDER = "Would you like to go [1]st or [2]nd?";
 	private final int HUMAN_GOES_FIRST = 1;
 
 	private Console console;
@@ -27,7 +26,7 @@ public class SinglePlayerGameEngine implements GameEngine {
 
 	@Override
 	public void runGame() {
-		setUpPlayers();
+		setTurnOrder();
 
 		while(board.isInPlay()) {
 			board.print();
@@ -35,15 +34,6 @@ public class SinglePlayerGameEngine implements GameEngine {
 			switchPlayers();
 		}
 		board.declareWinner();
-	}
-
-	private void setUpPlayers() {
-		requestTurnOrder();
-		setTurnOrder();
-	}
-
-	private void requestTurnOrder() {
-		console.println(REQUEST_TURN_ORDER);
 	}
 
 	private void setTurnOrder() {

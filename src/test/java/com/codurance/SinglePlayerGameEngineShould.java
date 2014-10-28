@@ -38,13 +38,6 @@ public class SinglePlayerGameEngineShould {
 	}
 
 	@Test public void
-	ask_if_the_player_wants_to_go_first() {
-		singlePlayerGameEngine.runGame();
-
-		verify(console).println(REQUEST_TURN_ORDER);
-	}
-
-	@Test public void
 	set_the_player_turn_order_with_player_going_first() {
 		given(inputHandler.getTurnOrder()).willReturn(1);
 		given(board.isInPlay()).willReturn(true, true, false);
