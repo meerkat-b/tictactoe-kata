@@ -13,7 +13,6 @@ import static org.mockito.Mockito.verify;
 public class BoardShould {
 
 	private static final int TOP_RIGHT = 3;
-	private static final int TOP_LEFT = 1;
 	private static final int X = 1;
 	private static final int O = 10;
 	private Console console = mock(Console.class);
@@ -48,15 +47,7 @@ public class BoardShould {
 
 	@Test public void
 	print_a_fully_played_board() {
-		board.mark(1,X);
-		board.mark(2,O);
-		board.mark(3,X);
-		board.mark(4,O);
-		board.mark(5,X);
-		board.mark(6,X);
-		board.mark(7,O);
-		board.mark(8,X);
-		board.mark(9,O);
+		playFullBoardWithNoWinner();
 		board.print();
 
 		verify(console).print("\n" +
@@ -67,13 +58,21 @@ public class BoardShould {
 	}
 
 	@Test public void
-	inform_if_a_row_of_Xs_has_a_win_condition() {
+	inform_if_there_is_a_row_win_condition() {
 		board.mark(1, X);
 		board.mark(2, X);
 		board.mark(3, X);
 
-		board.declareWinner();
-		verify(console).println("X Wins!");
+		assertThat(board.hasWinner(), is(true));
+	}
+
+	@Test public void
+	inform_if_there_is_a_column_win_condition() {
+		board.mark(1, O);
+		board.mark(4, O);
+		board.mark(7, O);
+
+		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
@@ -82,17 +81,41 @@ public class BoardShould {
 		board.mark(5, X);
 		board.mark(9, X);
 
-		board.declareWinner();
-		verify(console).println("X Wins!");
+		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
-	inform_if_a_column_of_Os_has_a_win_condition() {
-		board.mark(1, O);
-		board.mark(4, O);
-		board.mark(7, O);
+	inform_a_tie_situation_with_no_winner() {
+		playFullBoardWithNoWinner();
 
-		board.declareWinner();
-		verify(console).println("O Wins!");
+		assertThat(board.hasWinner(), is(false));
+	}
+
+	@Test public void
+	be_in_play_if_there_is_not_yet_a_winner() {
+		board.mark(1,X);
+		board.mark(2,O);
+		board.mark(3,X);
+
+		assertThat(board.isInPlay(), is(true));
+	}
+
+	@Test public void
+	not_be_in_play_if_there_are_no_more_spaces_on_the_board() {
+		playFullBoardWithNoWinner();
+
+		assertThat(board.isInPlay(), is(false));
+	}
+
+	private void playFullBoardWithNoWinner() {
+		board.mark(1,X);
+		board.mark(2,O);
+		board.mark(3,X);
+		board.mark(4,O);
+		board.mark(5,X);
+		board.mark(6,X);
+		board.mark(7,O);
+		board.mark(8,X);
+		board.mark(9,O);
 	}
 }

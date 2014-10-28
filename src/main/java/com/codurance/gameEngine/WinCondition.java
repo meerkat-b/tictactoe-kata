@@ -9,13 +9,13 @@ public enum WinCondition {
 	C3 (2,5,8),
 	D1 (0,4,8),
 	D2 (6,4,2);
-	public int p1;
-	public int p2;
-	public int p3;
+	public int pos1;
+	public int pos2;
+	public int pos3;
 
-	WinCondition(int position1, int position2, int position3) {
-		this.p1 = position1;
-		this.p2 = position2;
-		this.p3 = position3;
+	private WinCondition(int position1, int position2, int position3) {
+		this.pos1 = position1;
+		this.pos2 = position2;
+		this.pos3 = position3;
 	}
 }

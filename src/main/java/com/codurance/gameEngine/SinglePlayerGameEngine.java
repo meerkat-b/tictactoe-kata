@@ -6,8 +6,8 @@ import com.codurance.players.Player;
 
 public class SinglePlayerGameEngine implements GameEngine {
 
-	public static final String REQUEST_TURN_ORDER = "Would you like to go [1]st or [2]nd?";
-	private static final int HUMAN_GOES_FIRST = 1;
+	private final String REQUEST_TURN_ORDER = "Would you like to go [1]st or [2]nd?";
+	private final int HUMAN_GOES_FIRST = 1;
 
 	private Console console;
 	private InputHandler inputHandler;
@@ -34,7 +34,6 @@ public class SinglePlayerGameEngine implements GameEngine {
 			currentPlayer.play(board);
 			switchPlayers();
 		}
-
 		board.declareWinner();
 	}
 
