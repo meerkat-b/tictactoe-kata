@@ -55,6 +55,7 @@ public class Board {
 		for (int position : remainingSpaces()) {
 			stringBuilder.append("[" + position + "] ");
 		}
+		stringBuilder.append("\n");
 		console.print(stringBuilder.toString());
 	}
 

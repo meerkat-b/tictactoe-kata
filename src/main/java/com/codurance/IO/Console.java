@@ -1,7 +1,5 @@
 package com.codurance.IO;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.Scanner;
 
 public class Console {

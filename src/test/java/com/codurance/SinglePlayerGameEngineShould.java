@@ -16,8 +16,6 @@ import static org.mockito.Mockito.*;
 
 public class SinglePlayerGameEngineShould {
 
-	public static final String REQUEST_TURN_ORDER = "Would you like to go [1]st or [2]nd?";
-
 	private Console console;
 	private InputHandler inputHandler;
 	private Board board;

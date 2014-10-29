@@ -158,7 +158,7 @@ public class BoardShould {
 		board.play(6);
 
 		board.printRemainingSpaces();
-		verify(console).print("Remaining spaces : [1] [2] [7] [8] [9] ");
+		verify(console).print("Remaining spaces : [1] [2] [7] [8] [9] \n");
 	}
 
 	private void playFullBoardWithNoWinner() {

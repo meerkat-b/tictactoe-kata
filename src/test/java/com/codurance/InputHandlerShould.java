@@ -21,17 +21,16 @@ public class InputHandlerShould {
 	private Console console;
 	private InputHandler inputHandler;
 	private Board board;
-	private ArrayList EIGHT_AND_NINE;
+	private ArrayList EIGHT_AND_NINE = new ArrayList<Integer>() {{
+		add(8);
+		add(9);
+	}};
 
 	@Before
 	public void initialise() {
 		console = mock(Console.class);
 		board = mock(Board.class);
 
-		EIGHT_AND_NINE = new ArrayList<Integer>() {{
-			add(8);
-			add(9);
-		}};
 		given(board.remainingSpaces()).willReturn(EIGHT_AND_NINE);
 		given(console.nextLine()).willReturn(VALID_REMAINING_SPACE);
 
@@ -112,7 +111,4 @@ public class InputHandlerShould {
 		inputHandler.getPlayFor(board);
 		verify(board, times(4)).printRemainingSpaces();
 	}
-
-
-
 }
