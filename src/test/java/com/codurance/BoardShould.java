@@ -13,8 +13,6 @@ import static org.mockito.Mockito.verify;
 public class BoardShould {
 
 	private static final int TOP_RIGHT = 3;
-	private static final int X = 1;
-	private static final int O = 10;
 	private Console console = mock(Console.class);
 	private Board board;
 
@@ -36,7 +34,7 @@ public class BoardShould {
 
 	@Test public void
 	print_itself_after_a_play_on_the_board() {
-		board.mark(TOP_RIGHT, X);
+		board.play(TOP_RIGHT);
 		board.print();
 		verify(console).print("\n" +
 						" - - x\n" +
@@ -58,28 +56,50 @@ public class BoardShould {
 	}
 
 	@Test public void
+	alternate_between_x_and_o_between_plays() {
+		board.play(1);
+		board.play(2);
+		board.play(3);
+		board.play(4);
+		board.play(5);
+		board.print();
+
+		verify(console).print("\n" +
+						" x o x\n" +
+						" o x -\n" +
+						" - - -\n"
+		);
+	}
+
+	@Test public void
 	inform_if_there_is_a_row_win_condition() {
-		board.mark(1, X);
-		board.mark(2, X);
-		board.mark(3, X);
+		board.play(1);
+		board.play(4);
+		board.play(2);
+		board.play(9);
+		board.play(3);
 
 		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
 	inform_if_there_is_a_column_win_condition() {
-		board.mark(1, O);
-		board.mark(4, O);
-		board.mark(7, O);
+		board.play(1);
+		board.play(2);
+		board.play(4);
+		board.play(8);
+		board.play(7);
 
 		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
 	inform_if_there_is_a_diagonal_win_condition() {
-		board.mark(1, X);
-		board.mark(5, X);
-		board.mark(9, X);
+		board.play(1);
+		board.play(2);
+		board.play(5);
+		board.play(8);
+		board.play(9);
 
 		assertThat(board.hasWinner(), is(true));
 	}
@@ -93,9 +113,9 @@ public class BoardShould {
 
 	@Test public void
 	be_in_play_if_there_is_not_yet_a_winner() {
-		board.mark(1,X);
-		board.mark(2,O);
-		board.mark(3,X);
+		board.play(1);
+		board.play(2);
+		board.play(3);
 
 		assertThat(board.isInPlay(), is(true));
 	}
@@ -108,14 +128,14 @@ public class BoardShould {
 	}
 
 	private void playFullBoardWithNoWinner() {
-		board.mark(1,X);
-		board.mark(2,O);
-		board.mark(3,X);
-		board.mark(4,O);
-		board.mark(5,X);
-		board.mark(6,X);
-		board.mark(7,O);
-		board.mark(8,X);
-		board.mark(9,O);
+		board.play(1);
+		board.play(2);
+		board.play(3);
+		board.play(4);
+		board.play(5);
+		board.play(7);
+		board.play(6);
+		board.play(9);
+		board.play(8);
 	}
 }

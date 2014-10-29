@@ -4,22 +4,23 @@ import com.codurance.IO.Console;
 
 public class Board {
 	private final int OFFSET_ONE = 1;
-	private final int THREE_Xs = 3;
-	private final int THREE_Os = 30;
+
 	private final int X = 1;
 	private final int O = 10;
 	private final int ROW_SIZE = 3;
 	private final int EMPTY = 0;
 	private Console console;
 	private int[] board;
+	private int currentMarker = X;
 
 	public Board(Console console) {
 		this.console = console;
 		board = new int[9];
 	}
 
-	public void mark(int position, int marker) {
-		board[position-OFFSET_ONE]=marker;
+	public void play(int position) {
+		markBoardAt(position);
+		switchMarker();
 	}
 
 	public void print() {
@@ -60,12 +61,12 @@ public class Board {
 
 	private boolean X_hasSatisfied(WinCondition winCondition) {
 		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== THREE_Xs;
+				== winCondition.THREE_Xs;
 	}
 
-	private boolean O_hasSatisfied(WinCondition condition) {
-		return board[condition.pos1] + board[condition.pos2] + board[condition.pos3]
-				== THREE_Os;
+	private boolean O_hasSatisfied(WinCondition winCondition) {
+		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
+				== winCondition.THREE_Os;
 	}
 
 	private boolean hasNoWinner() {
@@ -87,5 +88,13 @@ public class Board {
 
 	public void declareWinner() {
 
+	}
+
+	private void markBoardAt(int position) {
+		board[position-OFFSET_ONE]=currentMarker;
+	}
+
+	private void switchMarker() {
+		currentMarker = (currentMarker == X) ? O : X;
 	}
 }
