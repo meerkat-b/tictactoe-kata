@@ -1,7 +1,6 @@
 package com.codurance.IO;
 
 import com.codurance.gameEngine.Board;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class InputHandler {
 	private Console console;
@@ -26,6 +25,20 @@ public class InputHandler {
 	}
 
 	public int getPlayFor(Board board) {
-		throw new NotImplementedException();
+		board.printRemainingSpaces();
+		console.println("Please pick a remaining space to mark");
+		int desiredPosition = intFor(console.nextLine(), board);
+
+		return board.remainingSpaces().contains((desiredPosition)) ?
+		(desiredPosition) : getPlayFor(board);
+	}
+
+	private int intFor(String string, Board board) {
+		try {
+			return Integer.parseInt(string);
+		} catch (NumberFormatException e) {
+			console.println("Please choose one of the remaining spaces");
+			return getPlayFor(board);
+		}
 	}
 }

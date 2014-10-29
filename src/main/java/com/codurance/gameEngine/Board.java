@@ -1,6 +1,9 @@
 package com.codurance.gameEngine;
 
 import com.codurance.IO.Console;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.ArrayList;
 
 public class Board {
 	private final int OFFSET_ONE = 1;
@@ -40,6 +43,10 @@ public class Board {
 			}
 		}
 		console.print(stringBuilder.toString());
+	}
+
+	public void printRemainingSpaces() {
+
 	}
 
 	public boolean isInPlay() {
@@ -98,7 +105,7 @@ public class Board {
 		currentMarker = (currentMarker == X) ? O : X;
 	}
 
-	public void printRemainingSpaces() {
-		
+	public ArrayList remainingSpaces() {
+		return null;
 	}
 }

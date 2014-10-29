@@ -4,8 +4,9 @@ import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
 import com.codurance.gameEngine.Board;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -16,14 +17,23 @@ import static org.mockito.Mockito.verify;
 
 public class InputHandlerShould {
 
+	private final String VALID_REMAINING_SPACE = "8";
 	private Console console;
 	private InputHandler inputHandler;
 	private Board board;
+	private ArrayList EIGHT_AND_NINE;
 
 	@Before
 	public void initialise() {
 		console = mock(Console.class);
 		board = mock(Board.class);
+
+		EIGHT_AND_NINE = new ArrayList<Integer>() {{
+			add(8);
+			add(9);
+		}};
+		given(board.remainingSpaces()).willReturn(EIGHT_AND_NINE);
+		given(console.nextLine()).willReturn(VALID_REMAINING_SPACE);
 
 		inputHandler = new InputHandler(console);
 	}
@@ -75,12 +85,34 @@ public class InputHandlerShould {
 		verify(console, times(3)).println("Please Select : Would you like to go [1]st or [2]nd?");
 		verify(console, times(3)).nextLine();
 	}
-	
-	@Ignore //ignoring this to commit
+
 	@Test public void
 	print_the_remaining_board_spaces_when_asking_for_a_play() {
 		inputHandler.getPlayFor(board);
 
 		verify(board).printRemainingSpaces();
 	}
+
+	@Test public void
+	ask_the_player_to_select_a_remaining_space() {
+		inputHandler.getPlayFor(board);
+
+		verify(console).println("Please pick a remaining space to mark");
+	}
+
+	@Test public void
+	get_the_players_desired_position_for_the_turn() {
+		assertThat(inputHandler.getPlayFor(board), is(8));
+	}
+
+	@Test public void
+	keep_asking_for_plays_until_the_player_picks_a_valid_remaining_space() {
+		given(console.nextLine()).willReturn("1","3","7", VALID_REMAINING_SPACE);
+
+		inputHandler.getPlayFor(board);
+		verify(board, times(4)).printRemainingSpaces();
+	}
+
+
+
 }
