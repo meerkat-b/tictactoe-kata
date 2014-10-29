@@ -23,7 +23,7 @@ public class Board {
 		switchMarker();
 	}
 
-	public void print() {
+	public void printBoardState() {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("\n");
 
@@ -96,5 +96,9 @@ public class Board {
 
 	private void switchMarker() {
 		currentMarker = (currentMarker == X) ? O : X;
+	}
+
+	public void printRemainingSpaces() {
+		
 	}
 }

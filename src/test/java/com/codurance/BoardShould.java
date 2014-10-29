@@ -23,7 +23,7 @@ public class BoardShould {
 
 	@Test public void
 	print_itself() {
-		board.print();
+		board.printBoardState();
 
 		verify(console).print( "\n" +
 				" - - -\n" +
@@ -35,7 +35,7 @@ public class BoardShould {
 	@Test public void
 	print_itself_after_a_play_on_the_board() {
 		board.play(TOP_RIGHT);
-		board.print();
+		board.printBoardState();
 		verify(console).print("\n" +
 						" - - x\n" +
 						" - - -\n" +
@@ -46,7 +46,7 @@ public class BoardShould {
 	@Test public void
 	print_a_fully_played_board() {
 		playFullBoardWithNoWinner();
-		board.print();
+		board.printBoardState();
 
 		verify(console).print("\n" +
 						" x o x\n" +
@@ -62,7 +62,7 @@ public class BoardShould {
 		board.play(3);
 		board.play(4);
 		board.play(5);
-		board.print();
+		board.printBoardState();
 
 		verify(console).print("\n" +
 						" x o x\n" +

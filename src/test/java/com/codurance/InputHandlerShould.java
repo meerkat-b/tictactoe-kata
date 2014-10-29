@@ -2,7 +2,9 @@ package com.codurance;
 
 import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
+import com.codurance.gameEngine.Board;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,10 +18,12 @@ public class InputHandlerShould {
 
 	private Console console;
 	private InputHandler inputHandler;
+	private Board board;
 
 	@Before
 	public void initialise() {
 		console = mock(Console.class);
+		board = mock(Board.class);
 
 		inputHandler = new InputHandler(console);
 	}
@@ -70,5 +74,13 @@ public class InputHandlerShould {
 
 		verify(console, times(3)).println("Please Select : Would you like to go [1]st or [2]nd?");
 		verify(console, times(3)).nextLine();
+	}
+	
+	@Ignore //ignoring this to commit
+	@Test public void
+	print_the_remaining_board_spaces_when_asking_for_a_play() {
+		inputHandler.getPlayFor(board);
+
+		verify(board).printRemainingSpaces();
 	}
 }

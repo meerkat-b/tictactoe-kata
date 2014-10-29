@@ -1,5 +1,8 @@
 package com.codurance.IO;
 
+import com.codurance.gameEngine.Board;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class InputHandler {
 	private Console console;
 
@@ -20,5 +23,9 @@ public class InputHandler {
 
 		return (turnOrder.equals("1") | turnOrder.equals("2")) ?
 				Integer.parseInt(turnOrder) : getTurnOrder();
+	}
+
+	public int getPlayFor(Board board) {
+		throw new NotImplementedException();
 	}
 }
