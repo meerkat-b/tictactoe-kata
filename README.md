@@ -10,3 +10,5 @@ Things that need to be done that I'm aware of:
   
   -X and O markers are still primitive values that need to be encapsulated
   
+  -The board class has some messy methods that need refactoring.
+  
