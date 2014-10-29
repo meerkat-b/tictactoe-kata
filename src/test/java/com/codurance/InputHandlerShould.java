@@ -18,13 +18,14 @@ import static org.mockito.Mockito.verify;
 public class InputHandlerShould {
 
 	private final String VALID_REMAINING_SPACE = "8";
-	private Console console;
-	private InputHandler inputHandler;
-	private Board board;
-	private ArrayList EIGHT_AND_NINE = new ArrayList<Integer>() {{
+	private final ArrayList EIGHT_AND_NINE = new ArrayList<Integer>() {{
 		add(8);
 		add(9);
 	}};
+
+	private Console console;
+	private InputHandler inputHandler;
+	private Board board;
 
 	@Before
 	public void initialise() {

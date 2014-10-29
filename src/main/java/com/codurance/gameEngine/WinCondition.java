@@ -9,6 +9,7 @@ public enum WinCondition {
 	COL3 (2,5,8),
 	DIA1 (0,4,8),
 	DIA2 (6,4,2);
+
 	public int pos1;
 	public int pos2;
 	public int pos3;
