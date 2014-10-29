@@ -26,18 +26,18 @@ public class InputHandler {
 
 	public int getPlayFor(Board board) {
 		board.printRemainingSpaces();
-		console.println("Please pick a remaining space to mark");
-		int desiredPosition = intFor(console.nextLine(), board);
+		console.println("Please select a space to mark");
+		int desiredPosition = intOfPlayFor(console.nextLine(), board);
 
 		return board.remainingSpaces().contains((desiredPosition)) ?
-		(desiredPosition) : getPlayFor(board);
+		desiredPosition : getPlayFor(board);
 	}
 
-	private int intFor(String string, Board board) {
+	private int intOfPlayFor(String string, Board board) {
 		try {
 			return Integer.parseInt(string);
 		} catch (NumberFormatException e) {
-			console.println("Please choose one of the remaining spaces");
+			console.println("That's not a valid input D:<");
 			return getPlayFor(board);
 		}
 	}

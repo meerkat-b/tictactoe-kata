@@ -1,12 +1,11 @@
 package com.codurance.gameEngine;
 
 import com.codurance.IO.Console;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
 public class Board {
-	private final int OFFSET_ONE = 1;
+	private final int OFFSET = 1;
 
 	private final int X = 1;
 	private final int O = 10;
@@ -26,6 +25,10 @@ public class Board {
 		switchMarker();
 	}
 
+	public boolean isInPlay() {
+		return hasNoWinner() && hasSpacesRemaining();
+	}
+
 	public void printBoardState() {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("\n");
@@ -42,15 +45,27 @@ public class Board {
 				stringBuilder.append("\n");
 			}
 		}
+		stringBuilder.append("\n");
 		console.print(stringBuilder.toString());
 	}
 
 	public void printRemainingSpaces() {
-
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Remaining spaces : ");
+		for (int position : remainingSpaces()) {
+			stringBuilder.append("[" + position + "] ");
+		}
+		console.print(stringBuilder.toString());
 	}
 
-	public boolean isInPlay() {
-		return hasNoWinner() && hasSpacesRemaining();
+	public ArrayList<Integer> remainingSpaces() {
+		return new ArrayList<Integer>() {{
+			for (int position = 0; position < board.length; position++) {
+				if(board[position]==EMPTY) {
+					add(position+OFFSET);
+				}
+			}
+		}};
 	}
 
 	public boolean hasWinner() {
@@ -85,12 +100,7 @@ public class Board {
 	}
 
 	private boolean hasSpacesRemaining() {
-		for (int position = 0; position < board.length; position++) {
-			if(board[position]==0) {
-				return true;
-			}
-		}
-		return false;
+		return !remainingSpaces().isEmpty();
 	}
 
 	public void declareWinner() {
@@ -98,14 +108,10 @@ public class Board {
 	}
 
 	private void markBoardAt(int position) {
-		board[position-OFFSET_ONE]=currentMarker;
+		board[position-OFFSET]=currentMarker;
 	}
 
 	private void switchMarker() {
 		currentMarker = (currentMarker == X) ? O : X;
-	}
-
-	public ArrayList remainingSpaces() {
-		return null;
 	}
 }

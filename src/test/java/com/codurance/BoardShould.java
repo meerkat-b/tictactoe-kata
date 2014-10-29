@@ -5,6 +5,8 @@ import com.codurance.gameEngine.Board;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
@@ -28,7 +30,8 @@ public class BoardShould {
 		verify(console).print( "\n" +
 				" - - -\n" +
 				" - - -\n" +
-				" - - -\n"
+				" - - -\n" +
+						"\n"
 		);
 	}
 
@@ -39,7 +42,8 @@ public class BoardShould {
 		verify(console).print("\n" +
 						" - - x\n" +
 						" - - -\n" +
-						" - - -\n"
+						" - - -\n" +
+						"\n"
 		);
 	}
 
@@ -51,7 +55,8 @@ public class BoardShould {
 		verify(console).print("\n" +
 						" x o x\n" +
 						" o x x\n" +
-						" o x o\n"
+						" o x o\n" +
+						"\n"
 		);
 	}
 
@@ -67,7 +72,8 @@ public class BoardShould {
 		verify(console).print("\n" +
 						" x o x\n" +
 						" o x -\n" +
-						" - - -\n"
+						" - - -\n" +
+						"\n"
 		);
 	}
 
@@ -125,6 +131,34 @@ public class BoardShould {
 		playFullBoardWithNoWinner();
 
 		assertThat(board.isInPlay(), is(false));
+	}
+
+	@Test public void
+	inform_of_its_remaining_spaces() {
+		board.play(1);
+		board.play(2);
+		board.play(3);
+		ArrayList positions = new ArrayList() {{
+			add(4);
+			add(5);
+			add(6);
+			add(7);
+			add(8);
+			add(9);
+		}};
+
+		assertThat(board.remainingSpaces(), is(positions));
+	}
+
+	@Test public void
+	print_its_remaining_spaces() {
+		board.play(3);
+		board.play(4);
+		board.play(5);
+		board.play(6);
+
+		board.printRemainingSpaces();
+		verify(console).print("Remaining spaces : [1] [2] [7] [8] [9] ");
 	}
 
 	private void playFullBoardWithNoWinner() {

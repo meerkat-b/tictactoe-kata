@@ -97,7 +97,7 @@ public class InputHandlerShould {
 	ask_the_player_to_select_a_remaining_space() {
 		inputHandler.getPlayFor(board);
 
-		verify(console).println("Please pick a remaining space to mark");
+		verify(console).println("Please select a space to mark");
 	}
 
 	@Test public void

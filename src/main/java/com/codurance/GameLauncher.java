@@ -9,12 +9,16 @@ import com.codurance.players.ComputerPlayer;
 import com.codurance.players.HumanPlayer;
 
 public class GameLauncher {
+		static Console console;
+		static InputHandler inputHandler;
+		static Board board;
+		static HumanPlayer humanPlayer;
 
 	public static void main(String[] args) {
-		Console console = new Console();
-		InputHandler inputHandler = new InputHandler(console);
-		Board board = new Board(console);
-		HumanPlayer humanPlayer = new HumanPlayer(inputHandler);
+		console = new Console();
+		inputHandler = new InputHandler(console);
+		board = new Board(console);
+		humanPlayer = new HumanPlayer(inputHandler);
 
 		SinglePlayerGameEngine singlePlayerGameEngine = new SinglePlayerGameEngine(board, humanPlayer, new ComputerPlayer(), console, inputHandler);
 		MultiPlayerGameEngine multiPlayerGameEngine = new MultiPlayerGameEngine();
