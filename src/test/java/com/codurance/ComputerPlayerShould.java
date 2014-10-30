@@ -4,17 +4,13 @@ import com.codurance.IO.Console;
 import com.codurance.gameEngine.Board;
 import com.codurance.players.ComputerPlayer;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 public class ComputerPlayerShould {
 
@@ -62,6 +58,23 @@ public class ComputerPlayerShould {
 			add(2);
 			add(6);
 			add(8);
+		}};
+
+		assertThat(board.remainingSpaces(), is(expectedSpaces));
+	}
+
+	@Test public void
+	intercept_an_opponents_win_condition_if_there_is_no_immediate_winning_move() {
+		board.play(1);
+		board.play(2);
+		board.play(4);
+		computerPlayer.play(board);
+		ArrayList expectedSpaces = new ArrayList<Integer>() {{
+			add(3);
+			add(5);
+			add(6);
+			add(8);
+			add(9);
 		}};
 
 		assertThat(board.remainingSpaces(), is(expectedSpaces));
