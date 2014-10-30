@@ -15,6 +15,8 @@ public enum WinCondition {
 	public int pos3;
 	public final int THREE_Xs = 3;
 	public final int THREE_Os = 30;
+	public final int TWO_Xs = 2;
+	public final int TWO_Os = 20;
 
 	private WinCondition(int position1, int position2, int position3) {
 		this.pos1 = position1;

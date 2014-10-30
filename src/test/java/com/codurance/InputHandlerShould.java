@@ -60,6 +60,9 @@ public class InputHandlerShould {
 
 		verify(console, times(4)).println("Please Select : [S]ingle-player or [M]ulti-player?");
 		verify(console, times(4)).nextLine();
+
+		
+		System.out.println("I'm Sorry");
 	}
 
 	@Test public void

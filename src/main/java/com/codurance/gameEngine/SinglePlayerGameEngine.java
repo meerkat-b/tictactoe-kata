@@ -39,6 +39,7 @@ public class SinglePlayerGameEngine implements GameEngine {
 	private void setTurnOrder() {
 		currentPlayer = inputHandler.getTurnOrder() == HUMAN_GOES_FIRST ?
 						humanPlayer : computerPlayer;
+
 	}
 
 	private void switchPlayers() {
