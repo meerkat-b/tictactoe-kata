@@ -32,7 +32,7 @@ public class ComputerPlayerShould {
 	}
 
 	@Test public void
-	complete_a_row_when_possible() {
+	complete_a_row_of_x_when_computer_is_going_first() {
 		board.play(1);
 		board.play(4);
 		board.play(2);
@@ -45,31 +45,25 @@ public class ComputerPlayerShould {
 			add(7);
 			add(8);
 		}};
+
 		assertThat(board.remainingSpaces(), is(expectedSpaces));
 	}
 
 	@Test public void
-	complete_a_column_when_possible() {
-		board.play(1);
+	complete_a_column_of_o_when_computers_is_going_second() {
 		board.play(9);
+		board.play(1);
+		board.play(5);
 		board.play(4);
-		board.play(2);
+		board.play(3);
 		computerPlayer.play(board);
 
 		ArrayList expectedSpaces = new ArrayList<Integer>(){{
-			add(3);
-			add(5);
+			add(2);
 			add(6);
 			add(8);
 		}};
+
 		assertThat(board.remainingSpaces(), is(expectedSpaces));
 	}
-
-//	@Test public void
-//	intercept_the_opponent_winning_when_no_winning_move_is_available() {
-//		board.play(1); //X
-//		board.play(3); //O
-//		board.play(2); //X
-//		board.play()
-//	}
 }

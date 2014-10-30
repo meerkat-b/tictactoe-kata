@@ -119,4 +119,8 @@ public class Board {
 	public int[] getBoard() {
 		return board;
 	}
+
+	public int getCurrentMarker() {
+		return currentMarker;
+	}
 }
