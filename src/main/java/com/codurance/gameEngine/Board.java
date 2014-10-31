@@ -1,6 +1,7 @@
 package com.codurance.gameEngine;
 
 import com.codurance.IO.Console;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -12,12 +13,11 @@ public class Board {
 	private final int ROW_SIZE = 3;
 	private final int EMPTY = 0;
 	private Console console;
-	private int[] board;
+	private int[] board = new int[9];
 	private int currentMarker = X;
 
 	public Board(Console console) {
 		this.console = console;
-		board = new int[9];
 	}
 
 	public void play(int position) {
@@ -105,7 +105,7 @@ public class Board {
 	}
 
 	public void declareWinner() {
-
+		throw new NotImplementedException();
 	}
 
 	private void markBoardAt(int position) {
@@ -115,4 +115,14 @@ public class Board {
 	private void switchMarker() {
 		currentMarker = (currentMarker == X) ? O : X;
 	}
+
+	public int[] state() {
+		return board;
+	}
+
+	public int getCurrentMarker() {
+		return currentMarker;
+	}
+
+
 }

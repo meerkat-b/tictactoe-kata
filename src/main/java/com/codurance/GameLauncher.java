@@ -15,8 +15,9 @@ public class GameLauncher {
 		InputHandler inputHandler = new InputHandler(console);
 		Board board = new Board(console);
 		HumanPlayer humanPlayer = new HumanPlayer(inputHandler);
+		ComputerPlayer computerPlayer = new ComputerPlayer(console);
 
-		SinglePlayerGameEngine singlePlayerGameEngine = new SinglePlayerGameEngine(board, humanPlayer, new ComputerPlayer(), console, inputHandler);
+		SinglePlayerGameEngine singlePlayerGameEngine = new SinglePlayerGameEngine(board, humanPlayer, computerPlayer, console, inputHandler);
 		MultiPlayerGameEngine multiPlayerGameEngine = new MultiPlayerGameEngine();
 
 		new Game(singlePlayerGameEngine, multiPlayerGameEngine, console, inputHandler).start();
