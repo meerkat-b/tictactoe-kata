@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class ComputerPlayerShould {
 
@@ -24,7 +25,7 @@ public class ComputerPlayerShould {
 
  		board = new Board(console);
 
-		computerPlayer = new ComputerPlayer();
+		computerPlayer = new ComputerPlayer(console);
 	}
 
 	@Test public void
@@ -78,5 +79,25 @@ public class ComputerPlayerShould {
 		}};
 
 		assertThat(board.remainingSpaces(), is(expectedSpaces));
+	}
+
+	@Test public void
+	make_a_random_move_if_there_is_no_winning_or_intercepting_move() {
+		board.play(1);
+		board.play(2);
+		computerPlayer.play(board);
+
+		assertThat(board.remainingSpaces().size(), is(6));
+	}
+
+	@Test public void
+	print_out_the_move_they_have_made() {
+		board.play(1);
+		board.play(5);
+		board.play(2);
+		board.play(9);
+		computerPlayer.play(board);
+
+		verify(console).println("Computer has chosen position [3]");
 	}
 }

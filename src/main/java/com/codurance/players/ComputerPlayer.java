@@ -1,7 +1,10 @@
 package com.codurance.players;
 
+import com.codurance.IO.Console;
 import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.WinCondition;
+
+import java.util.Random;
 
 public class ComputerPlayer implements Player {
 
@@ -10,59 +13,41 @@ public class ComputerPlayer implements Player {
 	private final int OFFSET = 1;
 	private final int EMPTY = 0;
 	private final int TWO = 2;
-	int[] board;
+	private int[] board;
 	private int marker;
 	private int opposingMarker;
+	private Console console;
+
+	public ComputerPlayer(Console console) {
+		this.console = console;
+	}
 
 	@Override
 	public void play(Board board) {
-		this.board = board.getBoard();
+		this.board = board.state();
 		getMarkersFrom(board);
 
-//		for(WinCondition winCondition : WinCondition.values()) {
-//			if(isSatisfied(winCondition)) {
-//
-//			}
-//		}
-		//priority HIGH
-		int positionToPlay = finishWinConditionOn();
+		int positionToPlay = finishWinConditionOn(marker);
 		if (positionToPlay == -1) {
-			positionToPlay = interceptOpposingWinConditionOn();
+			positionToPlay = finishWinConditionOn(opposingMarker);
 		}
 
+		if (positionToPlay == -1) {
+			Random rng = new Random();
+			positionToPlay = board.remainingSpaces().get(rng.nextInt(board.remainingSpaces().size())) - OFFSET;
+		}
 		board.play(positionToPlay + OFFSET);
-
+		console.println("Computer has chosen position ["+(positionToPlay+OFFSET)+"]");
 	}
 
-	private int interceptOpposingWinConditionOn() {
+	private int finishWinConditionOn(int marker) {
 		for(WinCondition winCondition : WinCondition.values()) {
-			if (isSatisfied(winCondition, opposingMarker)) {
-				if (board[winCondition.pos1]== EMPTY) {
-//					boardToPlay.play(winCondition.pos1 + OFFSET);
+			if (canPotentiallyFinish(winCondition, marker)) {
+				if (board[winCondition.pos1]==EMPTY) {
 					return winCondition.pos1;
-				} else if (board[winCondition.pos2]== EMPTY) {
-//					boardToPlay.play(winCondition.pos2 + OFFSET);
+				} else if (board[winCondition.pos2]==EMPTY) {
 					return winCondition.pos2;
-				} else if (board[winCondition.pos3]== EMPTY) {
-//					boardToPlay.play(winCondition.pos3 + OFFSET);
-					return winCondition.pos3;
-				}
-			}
-		}
-		return -1;
-	}
-
-	private int finishWinConditionOn() {
-		for(WinCondition winCondition : WinCondition.values()) {
-			if (isSatisfied(winCondition, marker)) {
-				if (board[winCondition.pos1]== EMPTY) {
-//					boardToPlay.play(winCondition.pos1 + OFFSET);
-					return winCondition.pos1;
-				} else if (board[winCondition.pos2]== EMPTY) {
-//					boardToPlay.play(winCondition.pos2 + OFFSET);
-					return winCondition.pos2;
-				} else if (board[winCondition.pos3]== EMPTY) {
-//					boardToPlay.play(winCondition.pos3 + OFFSET);
+				} else if (board[winCondition.pos3]==EMPTY) {
 					return winCondition.pos3;
 				}
 			}
@@ -75,7 +60,7 @@ public class ComputerPlayer implements Player {
 		opposingMarker = (marker == X) ? O : X;
 	}
 
-	private boolean isSatisfied(WinCondition winCondition, int marker) {
+	private boolean canPotentiallyFinish(WinCondition winCondition, int marker) {
 		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
 				== TWO * marker;
 	}

@@ -116,11 +116,13 @@ public class Board {
 		currentMarker = (currentMarker == X) ? O : X;
 	}
 
-	public int[] getBoard() {
+	public int[] state() {
 		return board;
 	}
 
 	public int getCurrentMarker() {
 		return currentMarker;
 	}
+
+
 }
