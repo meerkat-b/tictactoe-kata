@@ -15,24 +15,6 @@ import static org.mockito.Mockito.verify;
 
 public class BoardShould {
 
-	private static final int TOP_LEFT = 1;
-	private static final int TOP_CENTER = 2;
-	private static final int TOP_RIGHT = 3;
-	private static final int MIDDLE_LEFT = 4;
-	private static final int MIDDLE_CENTER = 5;
-	private static final int MIDDLE_RIGHT = 6;
-	private static final int BOTTOM_LEFT = 7;
-	private static final int BOTTOM_CENTER = 8;
-	private static final int BOTTOM_RIGHT = 9;
-
-	private Console console = mock(Console.class);
-	private Board board;
-
-	@Before
-	public void initialise() {
-		board = new Board(console);
-	}
-
 	@Test public void
 	print_itself() {
 		board.printBoardState();
@@ -219,6 +201,24 @@ public class BoardShould {
 				.withXMarksAt(TOP_LEFT, TOP_RIGHT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_CENTER)
 				.withOMarksAt(TOP_CENTER, MIDDLE_LEFT, BOTTOM_LEFT, BOTTOM_RIGHT)
 				.build();
+	}
+
+	private final int TOP_LEFT = 1;
+	private final int TOP_CENTER = 2;
+	private final int TOP_RIGHT = 3;
+	private final int MIDDLE_LEFT = 4;
+	private final int MIDDLE_CENTER = 5;
+	private final int MIDDLE_RIGHT = 6;
+	private final int BOTTOM_LEFT = 7;
+	private final int BOTTOM_CENTER = 8;
+	private final int BOTTOM_RIGHT = 9;
+
+	private Console console = mock(Console.class);
+	private Board board;
+
+	@Before
+	public void initialise() {
+		board = new Board(console);
 	}
 
 }
