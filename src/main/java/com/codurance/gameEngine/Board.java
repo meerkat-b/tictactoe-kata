@@ -134,6 +134,4 @@ public class Board {
 	private void switchMarker() {
 		currentMarker = (currentMarker == X) ? O : X;
 	}
-
-
 }

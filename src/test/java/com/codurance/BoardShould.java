@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static com.codurance.BoardBuilder.aBoardThatUses;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
@@ -14,7 +15,16 @@ import static org.mockito.Mockito.verify;
 
 public class BoardShould {
 
+	private static final int TOP_LEFT = 1;
+	private static final int TOP_CENTER = 2;
 	private static final int TOP_RIGHT = 3;
+	private static final int MIDDLE_LEFT = 4;
+	private static final int MIDDLE_CENTER = 5;
+	private static final int MIDDLE_RIGHT = 6;
+	private static final int BOTTOM_LEFT = 7;
+	private static final int BOTTOM_CENTER = 8;
+	private static final int BOTTOM_RIGHT = 9;
+
 	private Console console = mock(Console.class);
 	private Board board;
 
@@ -49,7 +59,7 @@ public class BoardShould {
 
 	@Test public void
 	print_a_fully_played_board() {
-		playFullBoardWithNoWinner();
+		board = aFullBoardWithNoWinner();
 		board.printBoardState();
 
 		verify(console).print("\n" +
@@ -62,11 +72,10 @@ public class BoardShould {
 
 	@Test public void
 	alternate_between_x_and_o_between_plays() {
-		board.play(1);
-		board.play(2);
-		board.play(3);
-		board.play(4);
-		board.play(5);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_RIGHT, MIDDLE_CENTER)
+				.withOMarksAt(TOP_CENTER, MIDDLE_LEFT)
+				.build();
 		board.printBoardState();
 
 		verify(console).print("\n" +
@@ -79,67 +88,65 @@ public class BoardShould {
 
 	@Test public void
 	inform_if_there_is_a_row_win_condition() {
-		board.play(1);
-		board.play(4);
-		board.play(2);
-		board.play(9);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_CENTER, TOP_RIGHT)
+				.withOMarksAt(BOTTOM_RIGHT, MIDDLE_LEFT)
+				.build();
 
 		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
 	inform_if_there_is_a_column_win_condition() {
-		board.play(1);
-		board.play(2);
-		board.play(4);
-		board.play(8);
-		board.play(7);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, MIDDLE_LEFT, BOTTOM_LEFT)
+				.withOMarksAt(TOP_CENTER, BOTTOM_CENTER)
+				.build();
 
 		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
 	inform_if_there_is_a_diagonal_win_condition() {
-		board.play(1);
-		board.play(2);
-		board.play(5);
-		board.play(8);
-		board.play(9);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, MIDDLE_CENTER, BOTTOM_RIGHT)
+				.withOMarksAt(TOP_CENTER, BOTTOM_CENTER)
+				.build();
 
 		assertThat(board.hasWinner(), is(true));
 	}
 
 	@Test public void
 	inform_a_tie_situation_with_no_winner() {
-		playFullBoardWithNoWinner();
+		board = aFullBoardWithNoWinner();
 
 		assertThat(board.hasWinner(), is(false));
 	}
 
 	@Test public void
 	be_in_play_if_there_is_not_yet_a_winner() {
-		board.play(1);
-		board.play(2);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_RIGHT)
+				.withOMarksAt(TOP_CENTER)
+				.build();
 
 		assertThat(board.isInPlay(), is(true));
 	}
 
 	@Test public void
 	not_be_in_play_if_there_are_no_more_spaces_on_the_board() {
-		playFullBoardWithNoWinner();
+		board = aFullBoardWithNoWinner();
 
 		assertThat(board.isInPlay(), is(false));
 	}
 
 	@Test public void
 	inform_of_its_remaining_spaces() {
-		board.play(1);
-		board.play(2);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_RIGHT)
+				.withOMarksAt(TOP_CENTER, MIDDLE_LEFT)
+				.build();
 		ArrayList positions = new ArrayList() {{
-			add(4);
 			add(5);
 			add(6);
 			add(7);
@@ -152,10 +159,10 @@ public class BoardShould {
 
 	@Test public void
 	print_its_remaining_spaces() {
-		board.play(3);
-		board.play(4);
-		board.play(5);
-		board.play(6);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_RIGHT, MIDDLE_CENTER)
+				.withOMarksAt(MIDDLE_LEFT, MIDDLE_RIGHT)
+				.build();
 
 		board.printRemainingSpaces();
 		verify(console).print("Remaining spaces : [1] [2] [7] [8] [9] \n");
@@ -163,7 +170,7 @@ public class BoardShould {
 	
 	@Test public void
 	declare_a_tie_if_there_is_no_winner_at_the_end_of_a_game() {
-		playFullBoardWithNoWinner();
+		board = aFullBoardWithNoWinner();
 
 		board.declareWinner();
 		verify(console).println("Tie Game! There is no Winner");
@@ -171,38 +178,32 @@ public class BoardShould {
 
 	@Test public void
 	declare_the_correct_winner_when_X_wins() {
-		board.play(1);
-		board.play(5);
-		board.play(2);
-		board.play(9);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_CENTER, TOP_RIGHT)
+				.withOMarksAt(MIDDLE_CENTER, BOTTOM_RIGHT)
+				.build();
 
 		board.declareWinner();
-
 		verify(console).println("The winner is X!");
 	}
 
 	@Test public void
 	declare_the_correct_winner_when_O_wins() {
-		board.play(5);
-		board.play(1);
-		board.play(9);
-		board.play(2);
-		board.play(7);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(MIDDLE_CENTER, BOTTOM_RIGHT, BOTTOM_LEFT)
+				.withOMarksAt(TOP_LEFT, TOP_CENTER, TOP_RIGHT)
+				.build();
 
 		board.declareWinner();
-
 		verify(console).println("The winner is O!");
 	}
 
 	@Test public void
 	print_the_end_board_when_declaring_the_winner() {
-		board.play(1);
-		board.play(5);
-		board.play(2);
-		board.play(9);
-		board.play(3);
+		board = aBoardThatUses(console)
+				.withXMarksAt(1, 2, 3)
+				.withOMarksAt(5, 9)
+				.build();
 
 		board.declareWinner();
 		verify(console).print( "\n" +
@@ -213,15 +214,11 @@ public class BoardShould {
 		);
 	}
 
-	private void playFullBoardWithNoWinner() {
-		board.play(1);
-		board.play(2);
-		board.play(3);
-		board.play(4);
-		board.play(5);
-		board.play(7);
-		board.play(6);
-		board.play(9);
-		board.play(8);
+	private Board aFullBoardWithNoWinner() {
+		return aBoardThatUses(console)
+				.withXMarksAt(TOP_LEFT, TOP_RIGHT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_CENTER)
+				.withOMarksAt(TOP_CENTER, MIDDLE_LEFT, BOTTOM_LEFT, BOTTOM_RIGHT)
+				.build();
 	}
+
 }
