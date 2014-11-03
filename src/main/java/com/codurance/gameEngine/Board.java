@@ -78,6 +78,29 @@ public class Board {
 		return false;
 	}
 
+	public void declareWinner() {
+		printBoardState();
+		if (hasNoWinner()) {
+			console.println("Tie Game! There is no Winner");
+		} else  {
+			for (WinCondition winCondition : WinCondition.values()) {
+				if (X_hasSatisfied(winCondition)) {
+					console.println("The winner is X!");
+				} else if (O_hasSatisfied(winCondition)) {
+					console.println("The winner is O!");
+				}
+			}
+		}
+	}
+
+	public int[] state() {
+		return board;
+	}
+
+	public int getCurrentMarker() {
+		return currentMarker;
+	}
+
 	private boolean isSatisfied(WinCondition winCondition) {
 		return X_hasSatisfied(winCondition) || O_hasSatisfied(winCondition);
 	}
@@ -104,24 +127,12 @@ public class Board {
 		return !remainingSpaces().isEmpty();
 	}
 
-	public void declareWinner() {
-		throw new NotImplementedException();
-	}
-
 	private void markBoardAt(int position) {
 		board[position-OFFSET]=currentMarker;
 	}
 
 	private void switchMarker() {
 		currentMarker = (currentMarker == X) ? O : X;
-	}
-
-	public int[] state() {
-		return board;
-	}
-
-	public int getCurrentMarker() {
-		return currentMarker;
 	}
 
 

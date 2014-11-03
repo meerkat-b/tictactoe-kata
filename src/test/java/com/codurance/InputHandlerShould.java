@@ -112,4 +112,13 @@ public class InputHandlerShould {
 		inputHandler.getPlayFor(board);
 		verify(board, times(4)).printRemainingSpaces();
 	}
+
+	@Test public void
+	not_allow_you_to_input_a_move_other_than_a_number() {
+		given(console.nextLine()).willReturn("two", "aquaman","8");
+		inputHandler.getPlayFor(board);
+
+		verify(console, times(2)).println("That's not a valid input D:<");
+		verify(console, times(3)).nextLine();
+	}
 }
