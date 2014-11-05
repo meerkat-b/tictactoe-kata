@@ -1,7 +1,5 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
-import com.codurance.IO.InputHandler;
 import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
 import com.codurance.players.HumanPlayer;
@@ -19,8 +17,6 @@ public class MultiPlayerGameEngineShould {
 	private MultiPlayerGameEngine multiPlayerGameEngine;
 	private HumanPlayer humanPlayer;
 	private HumanPlayer anotherHumanPlayer;
-	private Console console;
-	private InputHandler inputHandler;
 
 	@Before
 	public void initialise() {
