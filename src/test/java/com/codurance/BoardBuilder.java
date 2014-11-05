@@ -15,6 +15,14 @@ public class BoardBuilder {
 		board = new Board(console);
 	}
 
+	public static Board build() {
+		while(thereAreStillMarkersToPlay()) {
+			playARemainingX();
+			playARemainingO();
+		}
+		return board;
+	}
+
 	public static BoardBuilder aBoardThatUses(Console console) {
 		return new BoardBuilder(console);
 	}
@@ -31,14 +39,6 @@ public class BoardBuilder {
 			oList.add(i);
 		}
 		return this;
-	}
-
-	public static Board build() {
-		while(thereAreStillMarkersToPlay()) {
-			playARemainingX();
-			playARemainingO();
-		}
-		return board;
 	}
 
 	private static boolean thereAreStillMarkersToPlay() {

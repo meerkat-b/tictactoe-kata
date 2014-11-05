@@ -29,7 +29,7 @@ public class SinglePlayerGameEngine implements GameEngine {
 		setTurnOrder();
 
 		while(board.isInPlay()) {
-			board.printBoardState();
+			board.printBoard();
 			currentPlayer.play(board);
 			switchPlayers();
 		}

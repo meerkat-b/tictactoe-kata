@@ -1,7 +1,6 @@
 package com.codurance.gameEngine;
 
 import com.codurance.IO.Console;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -10,14 +9,17 @@ public class Board {
 
 	private final int X = 1;
 	private final int O = 10;
-	private final int ROW_SIZE = 3;
 	private final int EMPTY = 0;
 	private Console console;
+	private final BoardPrinter boardPrinter;
+
+
 	private int[] board = new int[9];
 	private int currentMarker = X;
 
 	public Board(Console console) {
 		this.console = console;
+		this.boardPrinter = new BoardPrinter(console);
 	}
 
 	public void play(int position) {
@@ -29,34 +31,13 @@ public class Board {
 		return hasNoWinner() && hasSpacesRemaining();
 	}
 
-	public void printBoardState() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("\n");
-
-		for(int position = 0; position < board.length; position++) {
-			if(board[position]==EMPTY)  {
-				stringBuilder.append(" -");
-			} else if (board[position]==X) {
-				stringBuilder.append(" x");
-			} else if (board[position]==O) {
-				stringBuilder.append(" o");
-			}
-			if (isEndOfRow(position)) {
-				stringBuilder.append("\n");
-			}
-		}
-		stringBuilder.append("\n");
-		console.print(stringBuilder.toString());
+	public void printBoard() {
+		boardPrinter.print(board);
 	}
 
 	public void printRemainingSpaces() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("Remaining spaces : ");
-		for (int position : remainingSpaces()) {
-			stringBuilder.append("[" + position + "] ");
-		}
-		stringBuilder.append("\n");
-		console.print(stringBuilder.toString());
+		boardPrinter.printRemainingSpacesOf(board);
+
 	}
 
 	public ArrayList<Integer> remainingSpaces() {
@@ -79,7 +60,7 @@ public class Board {
 	}
 
 	public void declareWinner() {
-		printBoardState();
+		boardPrinter.print(board);
 		if (hasNoWinner()) {
 			console.println("Tie Game! There is no Winner");
 		} else  {
@@ -117,10 +98,6 @@ public class Board {
 
 	private boolean hasNoWinner() {
 		return !hasWinner();
-	}
-
-	private boolean isEndOfRow(int position) {
-		return position % ROW_SIZE == 2;
 	}
 
 	private boolean hasSpacesRemaining() {

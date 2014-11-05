@@ -64,7 +64,7 @@ public class SinglePlayerGameEngineShould {
 		given(board.isInPlay()).willReturn(true, true, true, false);
 		singlePlayerGameEngine.runGame();
 
-		verify(board, times(3)).printBoardState();
+		verify(board, times(3)).printBoard();
 	}
 
 	@Test public void
@@ -81,6 +81,6 @@ public class SinglePlayerGameEngineShould {
 		given(board.isInPlay()).willReturn(true,true,true,true,true, false);
 		singlePlayerGameEngine.runGame();
 
-		verify(board).declareWinner();
+		verify(board, times(1)).declareWinner();
 	}
 }

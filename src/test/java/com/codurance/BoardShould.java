@@ -17,7 +17,7 @@ public class BoardShould {
 
 	@Test public void
 	print_itself() {
-		board.printBoardState();
+		board.printBoard();
 
 		verify(console).print( "\n" +
 				" - - -\n" +
@@ -30,7 +30,7 @@ public class BoardShould {
 	@Test public void
 	print_itself_after_a_play_on_the_board() {
 		board.play(TOP_RIGHT);
-		board.printBoardState();
+		board.printBoard();
 		verify(console).print("\n" +
 						" - - x\n" +
 						" - - -\n" +
@@ -42,7 +42,7 @@ public class BoardShould {
 	@Test public void
 	print_a_fully_played_board() {
 		board = aFullBoardWithNoWinner();
-		board.printBoardState();
+		board.printBoard();
 
 		verify(console).print("\n" +
 						" x o x\n" +
@@ -58,7 +58,7 @@ public class BoardShould {
 				.withXMarksAt(TOP_LEFT, TOP_RIGHT, MIDDLE_CENTER)
 				.withOMarksAt(TOP_CENTER, MIDDLE_LEFT)
 				.build();
-		board.printBoardState();
+		board.printBoard();
 
 		verify(console).print("\n" +
 						" x o x\n" +
