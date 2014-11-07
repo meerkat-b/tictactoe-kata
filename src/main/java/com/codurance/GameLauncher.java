@@ -1,5 +1,6 @@
 package com.codurance;
 
+import com.codurance.IO.BoardPrinter;
 import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
 import com.codurance.gameEngine.Board;
@@ -13,6 +14,7 @@ public class GameLauncher {
 	public static void main(String[] args) {
 		Console console = new Console();
 		InputHandler inputHandler = new InputHandler(console);
+		BoardPrinter boardPrinter = new BoardPrinter(console);
 		Board board = new Board(console);
 		HumanPlayer humanPlayer = new HumanPlayer(inputHandler);
 		HumanPlayer secondHumanPlayer = new HumanPlayer(inputHandler);

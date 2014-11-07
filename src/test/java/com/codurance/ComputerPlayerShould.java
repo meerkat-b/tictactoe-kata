@@ -16,7 +16,6 @@ import static org.mockito.Mockito.verify;
 
 public class ComputerPlayerShould {
 
-
 	private final int TOP_LEFT = 1;
 	private final int TOP_CENTER = 2;
 	private final int TOP_RIGHT = 3;

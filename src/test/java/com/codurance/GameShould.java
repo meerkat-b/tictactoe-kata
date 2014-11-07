@@ -1,4 +1,4 @@
-package com.codurance;
+ package com.codurance;
 
 import com.codurance.IO.Console;
 import com.codurance.IO.InputHandler;
