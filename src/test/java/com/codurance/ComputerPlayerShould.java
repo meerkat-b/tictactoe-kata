@@ -1,7 +1,8 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.Board;
+import com.codurance.gameEngine.Position;
 import com.codurance.players.ComputerPlayer;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,12 @@ public class ComputerPlayerShould {
 			add(8);
 		}};
 
-		assertThat(board.remainingSpaces(), is(expectedSpaces));
+
+		ArrayList<Integer> remainingSpaces = new ArrayList();
+		for (Position position : board.remainingSpaces()) {
+			remainingSpaces.add(position.value);
+		}
+		assertThat(remainingSpaces, is(expectedSpaces));
 	}
 
 	@Test public void
@@ -67,7 +73,11 @@ public class ComputerPlayerShould {
 			add(8);
 		}};
 
-		assertThat(board.remainingSpaces(), is(expectedSpaces));
+		ArrayList<Integer> remainingSpaces = new ArrayList();
+		for (Position position : board.remainingSpaces()) {
+			remainingSpaces.add(position.value);
+		}
+		assertThat(remainingSpaces, is(expectedSpaces));
 	}
 
 	@Test public void
@@ -85,13 +95,18 @@ public class ComputerPlayerShould {
 			add(9);
 		}};
 
-		assertThat(board.remainingSpaces(), is(expectedSpaces));
+
+		ArrayList<Integer> remainingSpaces = new ArrayList();
+		for (Position position : board.remainingSpaces()) {
+			remainingSpaces.add(position.value);
+		}
+		assertThat(remainingSpaces, is(expectedSpaces));
 	}
 
 	@Test public void
 	make_a_random_move_if_there_is_no_winning_or_intercepting_move() {
-		board.play(1);
-		board.play(2);
+		board.play(new Position(TOP_LEFT));
+		board.play(new Position(TOP_CENTER));
 		computerPlayer.play(board);
 
 		assertThat(board.remainingSpaces().size(), is(6));

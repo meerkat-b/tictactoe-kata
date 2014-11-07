@@ -1,4 +1,4 @@
-package com.codurance.IO;
+package com.codurance.io;
 
 import java.util.Scanner;
 

@@ -1,11 +1,15 @@
-package com.codurance.IO;
+package com.codurance.io;
+
+import com.codurance.gameEngine.markers.Cross;
+import com.codurance.gameEngine.markers.Marker;
+import com.codurance.gameEngine.markers.Naught;
 
 public class BoardPrinter {
 	private final int EMPTY = 0;
-	private final int X = 1;
-	private final int O = 10;
-	private final int ROW_SIZE = 3;
 	private final int OFFSET = 1;
+	private final int ROW_SIZE = 3;
+	private final Marker X = new Cross();
+	private final Marker O = new Naught();
 	private Console console;
 
 	public BoardPrinter(Console console) {
@@ -19,9 +23,9 @@ public class BoardPrinter {
 		for (int position = 0; position < board.length; position++) {
 			if (board[position] == EMPTY) {
 				stringBuilder.append(" -");
-			} else if (board[position] == X) {
+			} else if (board[position] == X.get()) {
 				stringBuilder.append(" x");
-			} else if (board[position] == O) {
+			} else if (board[position] == O.get()) {
 				stringBuilder.append(" o");
 			}
 			if (isEndOfRow(position)) {

@@ -1,7 +1,7 @@
 package com.codurance.gameEngine;
 
-import com.codurance.IO.Console;
-import com.codurance.IO.InputHandler;
+import com.codurance.io.Console;
+import com.codurance.io.InputHandler;
 import com.codurance.players.Player;
 
 public class SinglePlayerGameEngine implements GameEngine {

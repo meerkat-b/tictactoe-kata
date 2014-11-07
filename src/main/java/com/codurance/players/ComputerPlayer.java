@@ -1,6 +1,6 @@
 package com.codurance.players;
 
-import com.codurance.IO.Console;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.*;
 import com.codurance.gameEngine.markers.Cross;
 import com.codurance.gameEngine.markers.Marker;
@@ -12,8 +12,8 @@ public class ComputerPlayer implements Player {
 
 	private final Marker O = new Naught();
 	private final Marker X = new Cross();
-	private final int OFFSET = 1;
 	private final int EMPTY = 0;
+	private final int OFFSET = 1;
 	private final int TWO = 2;
 	private int[] board;
 	private Marker marker;
@@ -29,32 +29,33 @@ public class ComputerPlayer implements Player {
 		this.board = board.state();
 		getMarkersFrom(board);
 
-		int positionToPlay = finishWinConditionOn(marker);
-		if (positionToPlay == -1) {
+		Position positionToPlay = finishWinConditionOn(marker);
+		if (positionToPlay == null) {
 			positionToPlay = finishWinConditionOn(opposingMarker);
 		}
 
-		if (positionToPlay == -1) {
+		if (positionToPlay == null) {
 			Random rng = new Random();
-			positionToPlay = board.remainingSpaces().get(rng.nextInt(board.remainingSpaces().size())) - OFFSET;
+			positionToPlay = board.remainingSpaces().get(rng.nextInt(board.remainingSpaces().size()));
 		}
-		board.play(positionToPlay + OFFSET);
-		console.println("Computer has chosen position ["+(positionToPlay+OFFSET)+"]");
+		positionToPlay.applyOffsetOf(OFFSET);
+		board.play(positionToPlay);
+		console.println("Computer has chosen position ["+(positionToPlay.value)+"]");
 	}
 
-	private int finishWinConditionOn(Marker marker) {
+	private Position finishWinConditionOn(Marker marker) {
 		for(WinCondition winCondition : WinCondition.values()) {
 			if (canPotentiallyFinish(winCondition, marker)) {
 				if (board[winCondition.pos1]==EMPTY) {
-					return winCondition.pos1;
+					return new Position(winCondition.pos1);
 				} else if (board[winCondition.pos2]==EMPTY) {
-					return winCondition.pos2;
+					return new Position(winCondition.pos2);
 				} else if (board[winCondition.pos3]==EMPTY) {
-					return winCondition.pos3;
+					return new Position(winCondition.pos3);
 				}
 			}
 		}
-		return -1;
+		return null;
 	}
 
 	private void getMarkersFrom(Board board) {

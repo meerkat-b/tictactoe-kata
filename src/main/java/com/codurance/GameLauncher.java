@@ -1,8 +1,8 @@
 package com.codurance;
 
-import com.codurance.IO.BoardPrinter;
-import com.codurance.IO.Console;
-import com.codurance.IO.InputHandler;
+import com.codurance.io.BoardPrinter;
+import com.codurance.io.Console;
+import com.codurance.io.InputHandler;
 import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
 import com.codurance.gameEngine.SinglePlayerGameEngine;

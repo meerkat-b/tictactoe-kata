@@ -1,7 +1,7 @@
 package com.codurance.gameEngine;
 
-import com.codurance.IO.BoardPrinter;
-import com.codurance.IO.Console;
+import com.codurance.io.BoardPrinter;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.markers.Cross;
 import com.codurance.gameEngine.markers.Marker;
 import com.codurance.gameEngine.markers.Naught;
@@ -18,7 +18,6 @@ public class Board {
 	private Console console;
 	private final BoardPrinter boardPrinter;
 
-
 	private int[] board = new int[9];
 	private Marker currentMarker = X;
 
@@ -27,7 +26,7 @@ public class Board {
 		this.boardPrinter = new BoardPrinter(console);
 	}
 
-	public void play(int position) {
+	public void play(Position position) {
 		markBoardAt(position);
 		switchMarker();
 	}
@@ -45,11 +44,11 @@ public class Board {
 
 	}
 
-	public ArrayList<Integer> remainingSpaces() {
-		return new ArrayList<Integer>() {{
+	public ArrayList<Position> remainingSpaces() {
+		return new ArrayList<Position>() {{
 			for (int position = 0; position < board.length; position++) {
 				if(board[position]==EMPTY) {
-					add(position+OFFSET);
+					add(new Position(position+OFFSET));
 				}
 			}
 		}};
@@ -109,8 +108,8 @@ public class Board {
 		return !remainingSpaces().isEmpty();
 	}
 
-	private void markBoardAt(int position) {
-		board[position-OFFSET]=currentMarker.get();
+	private void markBoardAt(Position position) {
+		board[position.value-OFFSET]=currentMarker.get();
 	}
 
 	private void switchMarker() {
