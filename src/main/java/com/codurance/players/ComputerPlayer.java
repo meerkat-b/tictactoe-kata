@@ -1,21 +1,23 @@
 package com.codurance.players;
 
 import com.codurance.IO.Console;
-import com.codurance.gameEngine.Board;
-import com.codurance.gameEngine.WinCondition;
+import com.codurance.gameEngine.*;
+import com.codurance.gameEngine.markers.Cross;
+import com.codurance.gameEngine.markers.Marker;
+import com.codurance.gameEngine.markers.Naught;
 
 import java.util.Random;
 
 public class ComputerPlayer implements Player {
 
-	private final int O = 10;
-	private final int X = 1;
+	private final Marker O = new Naught();
+	private final Marker X = new Cross();
 	private final int OFFSET = 1;
 	private final int EMPTY = 0;
 	private final int TWO = 2;
 	private int[] board;
-	private int marker;
-	private int opposingMarker;
+	private Marker marker;
+	private Marker opposingMarker;
 	private Console console;
 
 	public ComputerPlayer(Console console) {
@@ -40,7 +42,7 @@ public class ComputerPlayer implements Player {
 		console.println("Computer has chosen position ["+(positionToPlay+OFFSET)+"]");
 	}
 
-	private int finishWinConditionOn(int marker) {
+	private int finishWinConditionOn(Marker marker) {
 		for(WinCondition winCondition : WinCondition.values()) {
 			if (canPotentiallyFinish(winCondition, marker)) {
 				if (board[winCondition.pos1]==EMPTY) {
@@ -60,8 +62,8 @@ public class ComputerPlayer implements Player {
 		opposingMarker = (marker == X) ? O : X;
 	}
 
-	private boolean canPotentiallyFinish(WinCondition winCondition, int marker) {
+	private boolean canPotentiallyFinish(WinCondition winCondition, Marker marker) {
 		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== TWO * marker;
+				== TWO * marker.get();
 	}
 }

@@ -1,6 +1,4 @@
-package com.codurance.gameEngine;
-
-import com.codurance.IO.Console;
+package com.codurance.IO;
 
 public class BoardPrinter {
 	private final int EMPTY = 0;
@@ -9,14 +7,13 @@ public class BoardPrinter {
 	private final int ROW_SIZE = 3;
 	private final int OFFSET = 1;
 	private Console console;
-	private StringBuilder stringBuilder;
 
 	public BoardPrinter(Console console) {
 		this.console = console;
-		stringBuilder = new StringBuilder();
 	}
 
 	public void print(int[] board) {
+		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("\n");
 
 		for (int position = 0; position < board.length; position++) {
@@ -40,6 +37,7 @@ public class BoardPrinter {
 	}
 
 	public void printRemainingSpacesOf(int[] board) {
+		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Remaining spaces : ");
 
 		for (int position = 0; position < board.length; position++) {
