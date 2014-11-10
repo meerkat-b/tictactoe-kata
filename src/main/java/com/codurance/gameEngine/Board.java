@@ -14,12 +14,12 @@ public class Board {
 
 	private final Marker X = new Cross();
 	private final Marker O = new Naught();
+	private Marker currentMarker = X;
 
 	private Console console;
 	private final BoardPrinter boardPrinter;
 
 	private int[] board = new int[9];
-	private Marker currentMarker = X;
 
 	public Board(Console console) {
 		this.console = console;
@@ -106,7 +106,7 @@ public class Board {
 	}
 
 	private void markBoardAt(Position position) {
-		board[position.value - OFFSET]=currentMarker.get();
+		board[position.value - OFFSET]=currentMarker.value();
 	}
 
 	private void switchMarker() {

@@ -1,5 +1,6 @@
 package com.codurance.players;
 
+import com.codurance.gameEngine.strategy.ComputerStrategies;
 import com.codurance.io.Console;
 import com.codurance.gameEngine.*;
 import com.codurance.gameEngine.markers.Cross;
@@ -10,7 +11,6 @@ public class ComputerPlayer implements Player {
 
 	private final Marker O = new Naught();
 	private final Marker X = new Cross();
-	private final int OFFSET = 1;
 	private Marker marker;
 	private Marker opposingMarker;
 	private Console console;
@@ -24,12 +24,12 @@ public class ComputerPlayer implements Player {
 		getMarkersFrom(board);
 
 		Position position = new ComputerStrategies(board, marker,  opposingMarker).execute();
-		position.applyOffsetOf(1);
+		position.applyOffset();
 		board.play(position);
-		printChosenMove(position);
+		printChosen(position);
 	}
 
-	private void printChosenMove(Position positionToPlay) {
+	private void printChosen(Position positionToPlay) {
 		console.println("Computer has chosen position ["+(positionToPlay.value)+"]");
 	}
 

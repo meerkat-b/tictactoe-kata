@@ -8,7 +8,7 @@ public class Position {
 
 	public int value;
 
-	public void applyOffsetOf(int offset) {
-		value += offset;
+	public void applyOffset() {
+		value += 1;
 	}
 }

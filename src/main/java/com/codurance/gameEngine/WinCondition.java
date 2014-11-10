@@ -17,8 +17,8 @@ public enum WinCondition {
 	public int pos2;
 	public int pos3;
 
-	public final int THREE_Xs = 3 * new Cross().get();
-	public final int THREE_Os = 3 * new Naught().get();
+	public final int THREE_Xs = 3 * new Cross().value();
+	public final int THREE_Os = 3 * new Naught().value();
 
 	private WinCondition(int position1, int position2, int position3) {
 		this.pos1 = position1;

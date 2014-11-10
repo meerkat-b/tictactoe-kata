@@ -23,9 +23,9 @@ public class BoardPrinter {
 		for (int position = 0; position < board.length; position++) {
 			if (board[position] == EMPTY) {
 				stringBuilder.append(" -");
-			} else if (board[position] == X.get()) {
+			} else if (board[position] == X.value()) {
 				stringBuilder.append(" x");
-			} else if (board[position] == O.get()) {
+			} else if (board[position] == O.value()) {
 				stringBuilder.append(" o");
 			}
 			if (isEndOfRow(position)) {

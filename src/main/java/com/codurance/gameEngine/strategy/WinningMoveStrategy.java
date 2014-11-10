@@ -1,9 +1,10 @@
-package com.codurance.players;
+package com.codurance.gameEngine.strategy;
 
 import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.Position;
 import com.codurance.gameEngine.WinCondition;
 import com.codurance.gameEngine.markers.Marker;
+import com.codurance.gameEngine.strategy.ComputerStrategy;
 
 public class WinningMoveStrategy implements ComputerStrategy {
 	private int[] board;
@@ -33,6 +34,6 @@ public class WinningMoveStrategy implements ComputerStrategy {
 
 	private boolean canPotentiallyFinish(WinCondition winCondition) {
 		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== 2 * marker.get();
+				== 2 * marker.value();
 	}
 }

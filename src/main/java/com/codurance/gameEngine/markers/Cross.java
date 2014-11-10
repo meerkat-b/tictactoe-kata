@@ -8,7 +8,7 @@ public class Cross implements Marker {
 	}
 
 	@Override
-	public int get() {
+	public int value() {
 		return value;
 	}
 }

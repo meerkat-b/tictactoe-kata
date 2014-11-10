@@ -1,7 +1,8 @@
-package com.codurance.players;
+package com.codurance.gameEngine.strategy;
 
 import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.Position;
+import com.codurance.gameEngine.strategy.ComputerStrategy;
 
 import java.util.Random;
 
