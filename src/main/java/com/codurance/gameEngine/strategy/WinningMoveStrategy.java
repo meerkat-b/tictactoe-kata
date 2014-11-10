@@ -8,6 +8,7 @@ import com.codurance.gameEngine.markers.Marker;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class WinningMoveStrategy implements ComputerStrategy {
+	private final int OFFSET = 1;
 	private final int EMPTY = 0;
 	private int[] board;
 	private Marker marker;
@@ -31,7 +32,7 @@ public class WinningMoveStrategy implements ComputerStrategy {
 		Position pos = null;
 		for(Position position : winCondition.positions) {
 			if (board[position.index] == EMPTY) {
-				pos = new Position(position.index);
+				pos = new Position(position.index+OFFSET);
 			}
 		}
 		return pos;
