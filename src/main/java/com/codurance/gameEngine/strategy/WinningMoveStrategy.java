@@ -4,12 +4,13 @@ import com.codurance.gameEngine.Board;
 import com.codurance.gameEngine.Position;
 import com.codurance.gameEngine.WinCondition;
 import com.codurance.gameEngine.markers.Marker;
-import com.codurance.gameEngine.strategy.ComputerStrategy;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class WinningMoveStrategy implements ComputerStrategy {
+	private final int EMPTY = 0;
 	private int[] board;
 	private Marker marker;
-	private int EMPTY = 0;
 
 	public WinningMoveStrategy(Board board, Marker marker) {
 		this.board = board.state();
@@ -19,21 +20,25 @@ public class WinningMoveStrategy implements ComputerStrategy {
 	@Override
 	public Position execute() {
 		for(WinCondition winCondition : WinCondition.values()) {
-			if (canPotentiallyFinish(winCondition)) {
-				if (board[winCondition.pos1]==EMPTY) {
-					return new Position(winCondition.pos1);
-				} else if (board[winCondition.pos2]==EMPTY) {
-					return new Position(winCondition.pos2);
-				} else if (board[winCondition.pos3]==EMPTY) {
-					return new Position(winCondition.pos3);
-				}
+			if(canPotentiallyFinish(winCondition)) {
+				return emptySpaceOf(winCondition);
 			}
 		}
 		return null;
 	}
 
+	private Position emptySpaceOf(WinCondition winCondition) {
+		for(Position position : winCondition.positions) {
+			if (board[position.value] == EMPTY) {
+				return new Position(position.value);
+			}
+		}
+		throw new RuntimeException("Failed to find an empty space of the current Win Condition");
+	}
+
 	private boolean canPotentiallyFinish(WinCondition winCondition) {
-		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== 2 * marker.value();
+		AtomicInteger sum = new AtomicInteger(0);
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.value]));
+		return sum.get() == 2*marker.value();
 	}
 }
