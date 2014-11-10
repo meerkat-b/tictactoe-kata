@@ -46,11 +46,8 @@ public class Board {
 
 	public ArrayList<Position> remainingSpaces() {
 		return new ArrayList<Position>() {{
-			for (int position = 0; position < board.length; position++) {
-				if(board[position]==EMPTY) {
-					add(new Position(position+OFFSET));
-				}
-			}
+			for (int index = 0; index < board.length; index++)
+				if (board[index] == EMPTY) add(new Position(index + OFFSET));
 		}};
 	}
 
@@ -109,7 +106,7 @@ public class Board {
 	}
 
 	private void markBoardAt(Position position) {
-		board[position.value-OFFSET]=currentMarker.get();
+		board[position.value - OFFSET]=currentMarker.get();
 	}
 
 	private void switchMarker() {

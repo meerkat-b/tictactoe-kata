@@ -14,7 +14,6 @@ public class GameLauncher {
 	public static void main(String[] args) {
 		Console console = new Console();
 		InputHandler inputHandler = new InputHandler(console);
-		BoardPrinter boardPrinter = new BoardPrinter(console);
 		Board board = new Board(console);
 		HumanPlayer humanPlayer = new HumanPlayer(inputHandler);
 		HumanPlayer secondHumanPlayer = new HumanPlayer(inputHandler);

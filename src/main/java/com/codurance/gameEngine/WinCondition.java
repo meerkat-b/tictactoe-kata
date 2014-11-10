@@ -24,5 +24,10 @@ public enum WinCondition {
 		this.pos1 = position1;
 		this.pos2 = position2;
 		this.pos3 = position3;
+
+		//things to add:
+		//list of positions instead of 3 variables
+		//sum of 3
+		//sum of 2
 	}
 }
