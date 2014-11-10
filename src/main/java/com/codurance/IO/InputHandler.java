@@ -1,6 +1,7 @@
 package com.codurance.io;
 
 import com.codurance.gameEngine.Board;
+import com.codurance.gameEngine.Position;
 
 public class InputHandler {
 	private Console console;
@@ -27,10 +28,10 @@ public class InputHandler {
 	public int getPlayFor(Board board) {
 		board.printRemainingSpaces();
 		console.println("Please select a space to mark");
-		int desiredPosition = intOfPlayFor(console.nextLine(), board);
+		Position desiredPosition = new Position(intOfPlayFor(console.nextLine(), board));
 
-		return board.remainingSpaces().contains((desiredPosition)) ?
-		desiredPosition : getPlayFor(board);
+		return board.remainingSpaces().contains(desiredPosition) ?
+		desiredPosition.index : getPlayFor(board);
 	}
 
 	private int intOfPlayFor(String string, Board board) {

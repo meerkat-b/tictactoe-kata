@@ -28,17 +28,18 @@ public class WinningMoveStrategy implements ComputerStrategy {
 	}
 
 	private Position emptySpaceOf(WinCondition winCondition) {
+		Position pos = null;
 		for(Position position : winCondition.positions) {
-			if (board[position.value] == EMPTY) {
-				return new Position(position.value);
+			if (board[position.index] == EMPTY) {
+				pos = new Position(position.index);
 			}
 		}
-		throw new RuntimeException("Failed to find an empty space of the current Win Condition");
+		return pos;
 	}
 
 	private boolean canPotentiallyFinish(WinCondition winCondition) {
 		AtomicInteger sum = new AtomicInteger(0);
-		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.value]));
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.index]));
 		return sum.get() == 2*marker.value();
 	}
 }

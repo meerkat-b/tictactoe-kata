@@ -7,7 +7,6 @@ import com.codurance.players.ComputerPlayer;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 
 import static com.codurance.BoardBuilder.aBoardThatUses;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,70 +37,45 @@ public class ComputerPlayerShould {
 	}
 
 	@Test public void
-	complete_a_row_of_x_when_computer_is_going_first() {
+	complete_a_row_of_x_when_playing_as_x() {
 		board = aBoardThatUses(console)
 				.withXMarksAt(TOP_LEFT, TOP_CENTER)
 				.withOMarksAt(MIDDLE_LEFT, BOTTOM_RIGHT)
 				.build();
 		computerPlayer.play(board);
-		ArrayList expectedSpaces = new ArrayList<Integer>(){{
-			add(5);
-			add(6);
-			add(7);
-			add(8);
-		}};
-
-
-		ArrayList<Integer> remainingSpaces = new ArrayList();
-		for (Position position : board.remainingSpaces()) {
-			remainingSpaces.add(position.value);
-		}
-		assertThat(remainingSpaces, is(expectedSpaces));
+		verify(console).println("Computer has chosen position [3]");
 	}
 
 	@Test public void
-	complete_a_column_of_o_when_computers_is_going_second() {
+	complete_a_column_of_o_when_playing_as_o() {
 		board = aBoardThatUses(console)
 				.withXMarksAt(BOTTOM_RIGHT, MIDDLE_CENTER, TOP_RIGHT)
 				.withOMarksAt(TOP_LEFT, MIDDLE_LEFT)
 				.build();
 		computerPlayer.play(board);
-
-		ArrayList expectedSpaces = new ArrayList<Integer>(){{
-			add(2);
-			add(6);
-			add(8);
-		}};
-
-		ArrayList<Integer> remainingSpaces = new ArrayList();
-		for (Position position : board.remainingSpaces()) {
-			remainingSpaces.add(position.value);
-		}
-		assertThat(remainingSpaces, is(expectedSpaces));
+		verify(console).println("Computer has chosen position [7]");
 	}
 
 	@Test public void
-	intercept_an_opponents_win_condition_if_there_is_no_immediate_winning_move() {
+	intercept_an_opponents_win_condition_when_playing_as_x() {
+		board = aBoardThatUses(console)
+				.withXMarksAt(MIDDLE_LEFT, BOTTOM_RIGHT)
+				.withOMarksAt(TOP_LEFT, TOP_CENTER)
+				.build();
+		computerPlayer.play(board);
+		verify(console).println("Computer has chosen position [3]");
+	}
+
+	@Test public void
+	intercept_an_opponents_win_condition_whenplaying_as_o() {
 		board = aBoardThatUses(console)
 				.withXMarksAt(TOP_LEFT, MIDDLE_LEFT)
 				.withOMarksAt(TOP_CENTER)
 				.build();
 		computerPlayer.play(board);
-		ArrayList expectedSpaces = new ArrayList<Integer>() {{
-			add(3);
-			add(5);
-			add(6);
-			add(8);
-			add(9);
-		}};
-
-
-		ArrayList<Integer> remainingSpaces = new ArrayList();
-		for (Position position : board.remainingSpaces()) {
-			remainingSpaces.add(position.value);
-		}
-		assertThat(remainingSpaces, is(expectedSpaces));
+		verify(console).println("Computer has chosen position [7]");
 	}
+
 
 	@Test public void
 	make_a_random_move_if_there_is_no_winning_or_intercepting_move() {

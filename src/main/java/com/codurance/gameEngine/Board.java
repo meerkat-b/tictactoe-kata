@@ -7,6 +7,7 @@ import com.codurance.gameEngine.markers.Marker;
 import com.codurance.gameEngine.markers.Naught;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
 	private final int OFFSET = 1;
@@ -41,13 +42,13 @@ public class Board {
 
 	public void printRemainingSpaces() {
 		boardPrinter.printRemainingSpacesOf(board);
-
 	}
 
 	public ArrayList<Position> remainingSpaces() {
 		return new ArrayList<Position>() {{
-			for (int index = 0; index < board.length; index++)
+			for (int index = 0; index < board.length; index++) {
 				if (board[index] == EMPTY) add(new Position(index + OFFSET));
+			}
 		}};
 	}
 
@@ -88,13 +89,15 @@ public class Board {
 	}
 
 	private boolean X_hasSatisfied(WinCondition winCondition) {
-		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== winCondition.THREE_Xs;
+		AtomicInteger sum = new AtomicInteger(0);
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.index]));
+		return sum.get() == winCondition.THREE_Xs;
 	}
 
 	private boolean O_hasSatisfied(WinCondition winCondition) {
-		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== winCondition.THREE_Os;
+		AtomicInteger sum = new AtomicInteger(0);
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.index]));
+		return sum.get() == winCondition.THREE_Os;
 	}
 
 	private boolean hasNoWinner() {
@@ -106,10 +109,10 @@ public class Board {
 	}
 
 	private void markBoardAt(Position position) {
-		board[position.value - OFFSET]=currentMarker.value();
+		board[position.index - OFFSET]=currentMarker.value();
 	}
 
 	private void switchMarker() {
-		currentMarker = (currentMarker == X) ? O : X;
+		currentMarker = (currentMarker.equals(X)) ? O : X;
 	}
 }

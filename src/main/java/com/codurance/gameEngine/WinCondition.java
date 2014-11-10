@@ -15,22 +15,25 @@ public enum WinCondition {
 	DIA1 (0,4,8),
 	DIA2 (6,4,2);
 
-	public int pos1;
-	public int pos2;
-	public int pos3;
+//	public int pos1;
+//	public int pos2;
+//	public int pos3;
 
 	public ArrayList<Position> positions = new ArrayList<>();
 
 	public final int THREE_Xs = 3 * new Cross().value();
 	public final int THREE_Os = 3 * new Naught().value();
 
+	public final int TWO_Xs = 2 * new Cross().value();
+	public final int TWO_Os = 2 * new Naught().value();
+
 	private WinCondition(int pos1, int pos2, int pos3) {
 		positions.add(new Position(pos1));
 		positions.add(new Position(pos2));
 		positions.add(new Position(pos3));
-		this.pos1 = pos1;
-		this.pos2 = pos2;
-		this.pos3 = pos3;
+//		this.pos1 = pos1;
+//		this.pos2 = pos2;
+//		this.pos3 = pos3;
 
 		//things to add:
 		//list of positions instead of 3 variables

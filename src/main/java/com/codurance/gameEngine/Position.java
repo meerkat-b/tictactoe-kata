@@ -3,12 +3,21 @@ package com.codurance.gameEngine;
 public class Position {
 
 	public Position(int position) {
-		value = position;
+		index = position;
 	}
 
-	public int value;
+	public int index;
 
 	public void applyOffset() {
-		value += 1;
+		index += 1;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if(object instanceof Position){
+			Position position = (Position) object;
+			return index == position.index;
+		}
+		return false;
 	}
 }

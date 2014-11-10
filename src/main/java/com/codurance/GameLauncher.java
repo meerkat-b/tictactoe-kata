@@ -1,6 +1,5 @@
 package com.codurance;
 
-import com.codurance.io.BoardPrinter;
 import com.codurance.io.Console;
 import com.codurance.io.InputHandler;
 import com.codurance.gameEngine.Board;

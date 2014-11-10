@@ -14,5 +14,6 @@ public class HumanPlayer implements Player {
 	@Override
 	public void play(Board board) {
 		board.play(new Position(inputHandler.getPlayFor(board)));
+		board.printRemainingSpaces();
 	}
 }

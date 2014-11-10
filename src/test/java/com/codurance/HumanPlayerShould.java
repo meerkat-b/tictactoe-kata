@@ -49,7 +49,7 @@ public class HumanPlayerShould {
 
 		ArrayList<Integer> remainingSpaces = new ArrayList();
 		for (Position position : board.remainingSpaces()) {
-			remainingSpaces.add(position.value);
+			remainingSpaces.add(position.index);
 		}
 
 		assertThat(remainingSpaces, is(expectedSpaces));

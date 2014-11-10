@@ -9,6 +9,7 @@ import com.codurance.gameEngine.markers.Naught;
 
 public class ComputerPlayer implements Player {
 
+
 	private final Marker O = new Naught();
 	private final Marker X = new Cross();
 	private Marker marker;
@@ -24,17 +25,16 @@ public class ComputerPlayer implements Player {
 		getMarkersFrom(board);
 
 		Position position = new ComputerStrategies(board, marker,  opposingMarker).execute();
-		position.applyOffset();
 		board.play(position);
 		printChosen(position);
 	}
 
 	private void printChosen(Position positionToPlay) {
-		console.println("Computer has chosen position ["+(positionToPlay.value)+"]");
+		console.println("Computer has chosen position ["+(positionToPlay.index)+"]");
 	}
 
 	private void getMarkersFrom(Board board) {
 		marker = board.getCurrentMarker();
-		opposingMarker = (marker == X) ? O : X;
+		opposingMarker = (marker.equals(X)) ? O : X;
 	}
 }
