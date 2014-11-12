@@ -30,10 +30,8 @@ public class GameShould {
 				(board, player1, player2);
 	}
 
-	@Ignore
 	@Test public void
-	set_the_player_turn_order_with_player_going_first() {
-		given(inputHandler.getTurnOrder()).willReturn(1);
+	make_player_ones_move_before_player_twos_move() {
 		given(board.isInPlay()).willReturn(true, true, false);
 		game.runGame();
 
@@ -41,19 +39,6 @@ public class GameShould {
 
 		turnOrder.verify(player1).play(board);
 		turnOrder.verify(player2).play(board);
-	}
-
-	@Ignore
-	@Test public void
-	set_the_player_turn_order_with_player_going_second() {
-		given(inputHandler.getTurnOrder()).willReturn(2);
-		given(board.isInPlay()).willReturn(true, true, false);
-		game.runGame();
-
-		InOrder turnOrder = inOrder(player2, player1);
-
-		turnOrder.verify(player2).play(board);
-		turnOrder.verify(player1).play(board);
 	}
 
 	@Test public void
