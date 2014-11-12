@@ -43,7 +43,7 @@ public class ComputerPlayerShould {
 				.withOMarksAt(MIDDLE_LEFT, BOTTOM_RIGHT)
 				.build();
 		computerPlayer.play(board);
-		verify(console).println("Computer has chosen position [3]");
+		verify(console).println((movePlayedAt(3)));
 	}
 
 	@Test public void
@@ -53,7 +53,7 @@ public class ComputerPlayerShould {
 				.withOMarksAt(TOP_LEFT, MIDDLE_LEFT)
 				.build();
 		computerPlayer.play(board);
-		verify(console).println("Computer has chosen position [7]");
+		verify(console).println((movePlayedAt(7)));
 	}
 
 	@Test public void
@@ -63,7 +63,7 @@ public class ComputerPlayerShould {
 				.withOMarksAt(TOP_LEFT, TOP_CENTER)
 				.build();
 		computerPlayer.play(board);
-		verify(console).println("Computer has chosen position [3]");
+		verify(console).println((movePlayedAt(3)));
 	}
 
 	@Test public void
@@ -73,9 +73,8 @@ public class ComputerPlayerShould {
 				.withOMarksAt(TOP_CENTER)
 				.build();
 		computerPlayer.play(board);
-		verify(console).println("Computer has chosen position [7]");
+		verify(console).println((movePlayedAt(7)));
 	}
-
 
 	@Test public void
 	make_a_random_move_if_there_is_no_winning_or_intercepting_move() {
@@ -86,6 +85,7 @@ public class ComputerPlayerShould {
 		assertThat(board.remainingSpaces().size(), is(6));
 	}
 
+
 	@Test public void
 	print_out_the_move_they_have_made() {
 		board = aBoardThatUses(console)
@@ -94,6 +94,10 @@ public class ComputerPlayerShould {
 				.build();
 		computerPlayer.play(board);
 
-		verify(console).println("Computer has chosen position [3]");
+		verify(console).println((movePlayedAt(3)));
+	}
+
+	private String movePlayedAt(int chosen) {
+		return "Move played at position ["+chosen+"]";
 	}
 }

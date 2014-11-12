@@ -15,7 +15,7 @@ public class Board {
 
 	private final Marker X = new Cross();
 	private final Marker O = new Naught();
-	private Marker currentMarker = X;
+	private Marker currentMarker = O;
 
 	private Console console;
 	private final BoardPrinter boardPrinter;
@@ -29,7 +29,7 @@ public class Board {
 
 	public void play(Position position) {
 		markBoardAt(position);
-		switchMarker();
+		printChosen(position);
 	}
 
 	public boolean isInPlay() {
@@ -80,10 +80,6 @@ public class Board {
 		return board;
 	}
 
-	public Marker getCurrentMarker() {
-		return currentMarker;
-	}
-
 	private boolean isSatisfied(WinCondition winCondition) {
 		return X_hasSatisfied(winCondition) || O_hasSatisfied(winCondition);
 	}
@@ -109,10 +105,15 @@ public class Board {
 	}
 
 	private void markBoardAt(Position position) {
-		board[position.index - OFFSET]=currentMarker.value();
+		board[position.index - OFFSET] = nextMarker().value();
 	}
 
-	private void switchMarker() {
+	private void printChosen(Position position) {
+		console.println("Move played at position ["+(position.index)+"]");
+	}
+
+	private Marker nextMarker() {
 		currentMarker = (currentMarker.equals(X)) ? O : X;
+		return currentMarker;
 	}
 }

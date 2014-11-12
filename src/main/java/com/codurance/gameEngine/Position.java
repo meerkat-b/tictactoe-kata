@@ -10,10 +10,7 @@ public class Position {
 
 	@Override
 	public boolean equals(Object object) {
-		if(object instanceof Position){
-			Position position = (Position) object;
-			return index == position.index;
-		}
-		return false;
+		Position position = (Position) object;
+		return index == position.index;
 	}
 }

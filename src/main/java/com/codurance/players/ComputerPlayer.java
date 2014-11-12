@@ -24,22 +24,10 @@ public class ComputerPlayer implements Player {
 
 		Position position = new ComputerStrategies(board, marker,  opposingMarker).execute();
 		board.play(position);
-		printChosen(position);
-	}
-
-
-	private void printChosen(Position positionToPlay) {
-		console.println("Computer has chosen position ["+(positionToPlay.index)+"]");
 	}
 
 	private void getMarkersFrom(Board board) {
-		marker = board.getCurrentMarker();
+		marker = (board.remainingSpaces().size()%2==0) ? O : X;
 		opposingMarker = (marker.equals(X)) ? O : X;
-	}
-
-	//is the fact that i have to call this a flaw in the design?
-	@Override
-	public boolean wantToGoFirst() {
-		throw new RuntimeException();
 	}
 }

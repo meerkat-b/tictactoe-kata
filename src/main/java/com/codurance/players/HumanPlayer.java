@@ -16,11 +16,4 @@ public class HumanPlayer implements Player {
 	public void play(Board board) {
 		board.play(new Position(inputHandler.getPlayFor(board)));
 	}
-
-	@Override
-	public boolean wantToGoFirst() {
-		return (inputHandler.getTurnOrder() == HUMAN_GOES_FIRST)
-													? true
-													: false;
-	}
 }
