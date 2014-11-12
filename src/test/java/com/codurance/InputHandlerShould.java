@@ -1,7 +1,8 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
-import com.codurance.IO.InputHandler;
+import com.codurance.gameEngine.Position;
+import com.codurance.io.Console;
+import com.codurance.io.InputHandler;
 import com.codurance.gameEngine.Board;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,16 +12,14 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class InputHandlerShould {
 
 	private final String VALID_REMAINING_SPACE = "8";
-	private final ArrayList EIGHT_AND_NINE = new ArrayList<Integer>() {{
-		add(8);
-		add(9);
+	private final ArrayList EIGHT_AND_NINE = new ArrayList<Position>() {{
+		add(new Position(8));
+		add(new Position(9));
 	}};
 
 	private Console console;

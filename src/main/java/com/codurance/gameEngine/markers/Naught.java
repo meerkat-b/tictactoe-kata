@@ -8,7 +8,12 @@ public class Naught implements Marker {
 	}
 
 	@Override
-	public int get() {
+	public int value() {
 		return value;
+	}
+
+	public boolean equals(Object o) {
+		Marker marker = (Marker) o;
+		return marker.value() == value();
 	}
 }

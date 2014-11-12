@@ -1,7 +1,8 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.Board;
+import com.codurance.gameEngine.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class BoardShould {
 
 	@Test public void
 	print_itself_after_a_play_on_the_board() {
-		board.play(TOP_RIGHT);
+		board.play(new Position(TOP_RIGHT));
 		board.printBoard();
 		verify(console).print("\n" +
 						" - - x\n" +
@@ -136,7 +137,11 @@ public class BoardShould {
 			add(9);
 		}};
 
-		assertThat(board.remainingSpaces(), is(positions));
+		ArrayList<Integer> remainingSpaces = new ArrayList();
+		for (Position position : board.remainingSpaces()) {
+			remainingSpaces.add(position.index);
+		}
+		assertThat(remainingSpaces, is(positions));
 	}
 
 	@Test public void

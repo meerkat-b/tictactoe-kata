@@ -8,7 +8,13 @@ public class Cross implements Marker {
 	}
 
 	@Override
-	public int get() {
+	public int value() {
 		return value;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Marker marker = (Marker) o ;
+		return marker.value() == value();
 	}
 }

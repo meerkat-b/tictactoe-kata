@@ -1,35 +1,33 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
-import com.codurance.IO.InputHandler;
-import com.codurance.gameEngine.GameEngine;
-import com.codurance.gameEngine.MultiPlayerGameEngine;
-import com.codurance.gameEngine.SinglePlayerGameEngine;
+import com.codurance.gameEngine.Board;
+import com.codurance.players.Player;
 
 public class Game {
 
-	private static final String SINGLE_PLAYER = "s";
+	private final Board board;
+	private Player player1;
+	private Player player2;
+	private Player currentPlayer;
 
-	private SinglePlayerGameEngine singlePlayerGameEngine;
-	private MultiPlayerGameEngine multiPlayerGameEngine;
-	private Console console;
-	private InputHandler inputHandler;
-
-	public Game(SinglePlayerGameEngine singlePlayerGameEngine, MultiPlayerGameEngine multiPlayerGameEngine, Console console, InputHandler inputHandler) {
-		this.singlePlayerGameEngine = singlePlayerGameEngine;
-		this.multiPlayerGameEngine = multiPlayerGameEngine;
-		this.console = console;
-		this.inputHandler = inputHandler;
+	public Game(Board board, Player aPlayer, Player aSecondPlayer) {
+		this.board = board;
+		this.player1 = aPlayer;
+		this.player2 = aSecondPlayer;
 	}
 
-	public void start() {
-		gameType().runGame();
+	public void runGame() {
+		while(board.isInPlay()) {
+			board.printBoard();
+			nextPlayer().play(board);
+		}
+		board.declareWinner();
 	}
 
-	private GameEngine gameType() {
-		return inputHandler.getGameType().equals(SINGLE_PLAYER) ?
-				(SinglePlayerGameEngine) singlePlayerGameEngine :
-				(MultiPlayerGameEngine) multiPlayerGameEngine;
+	private Player nextPlayer() {
+		currentPlayer = (currentPlayer == player1)
+				? player2
+				: player1;
+		return currentPlayer;
 	}
-
 }

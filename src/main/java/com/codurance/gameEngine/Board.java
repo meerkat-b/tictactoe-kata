@@ -1,12 +1,13 @@
 package com.codurance.gameEngine;
 
-import com.codurance.IO.BoardPrinter;
-import com.codurance.IO.Console;
+import com.codurance.io.BoardPrinter;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.markers.Cross;
 import com.codurance.gameEngine.markers.Marker;
 import com.codurance.gameEngine.markers.Naught;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
 	private final int OFFSET = 1;
@@ -14,22 +15,21 @@ public class Board {
 
 	private final Marker X = new Cross();
 	private final Marker O = new Naught();
+	private Marker currentMarker = O;
 
 	private Console console;
 	private final BoardPrinter boardPrinter;
 
-
 	private int[] board = new int[9];
-	private Marker currentMarker = X;
 
 	public Board(Console console) {
 		this.console = console;
 		this.boardPrinter = new BoardPrinter(console);
 	}
 
-	public void play(int position) {
+	public void play(Position position) {
 		markBoardAt(position);
-		switchMarker();
+		printChosen(position);
 	}
 
 	public boolean isInPlay() {
@@ -42,15 +42,12 @@ public class Board {
 
 	public void printRemainingSpaces() {
 		boardPrinter.printRemainingSpacesOf(board);
-
 	}
 
-	public ArrayList<Integer> remainingSpaces() {
-		return new ArrayList<Integer>() {{
-			for (int position = 0; position < board.length; position++) {
-				if(board[position]==EMPTY) {
-					add(position+OFFSET);
-				}
+	public ArrayList<Position> remainingSpaces() {
+		return new ArrayList<Position>() {{
+			for (int index = 0; index < board.length; index++) {
+				if (board[index] == EMPTY) add(new Position(index + OFFSET));
 			}
 		}};
 	}
@@ -83,22 +80,20 @@ public class Board {
 		return board;
 	}
 
-	public Marker getCurrentMarker() {
-		return currentMarker;
-	}
-
 	private boolean isSatisfied(WinCondition winCondition) {
 		return X_hasSatisfied(winCondition) || O_hasSatisfied(winCondition);
 	}
 
 	private boolean X_hasSatisfied(WinCondition winCondition) {
-		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== winCondition.THREE_Xs;
+		AtomicInteger sum = new AtomicInteger(0);
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.index]));
+		return sum.get() == winCondition.THREE_Xs;
 	}
 
 	private boolean O_hasSatisfied(WinCondition winCondition) {
-		return board[winCondition.pos1] + board[winCondition.pos2] + board[winCondition.pos3]
-				== winCondition.THREE_Os;
+		AtomicInteger sum = new AtomicInteger(0);
+		winCondition.positions.forEach((pos) -> sum.addAndGet(board[pos.index]));
+		return sum.get() == winCondition.THREE_Os;
 	}
 
 	private boolean hasNoWinner() {
@@ -109,11 +104,16 @@ public class Board {
 		return !remainingSpaces().isEmpty();
 	}
 
-	private void markBoardAt(int position) {
-		board[position-OFFSET]=currentMarker.get();
+	private void markBoardAt(Position position) {
+		board[position.index - OFFSET] = nextMarker().value();
 	}
 
-	private void switchMarker() {
-		currentMarker = (currentMarker == X) ? O : X;
+	private void printChosen(Position position) {
+		console.println("Move played at position ["+(position.index)+"]");
+	}
+
+	private Marker nextMarker() {
+		currentMarker = (currentMarker.equals(X)) ? O : X;
+		return currentMarker;
 	}
 }

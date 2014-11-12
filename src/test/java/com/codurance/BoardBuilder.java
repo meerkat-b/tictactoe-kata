@@ -1,15 +1,16 @@
 package com.codurance;
 
-import com.codurance.IO.Console;
+import com.codurance.io.Console;
 import com.codurance.gameEngine.Board;
+import com.codurance.gameEngine.Position;
 
 import java.util.ArrayList;
 
 public class BoardBuilder {
 
 	private static Board board;
-	private static ArrayList<Integer> xList = new ArrayList<>();
-	private static ArrayList<Integer> oList = new ArrayList<>();
+	private static ArrayList<Position> xList = new ArrayList<>();
+	private static ArrayList<Position> oList = new ArrayList<>();
 
 	public BoardBuilder(Console console) {
 		board = new Board(console);
@@ -29,14 +30,14 @@ public class BoardBuilder {
 
 	public BoardBuilder withXMarksAt(Integer... XsToAdd) {
 		for (int i : XsToAdd) {
-			xList.add(i);
+			xList.add(new Position(i));
 		}
 		return this;
 	}
 
 	public BoardBuilder withOMarksAt(Integer... OsToAdd) {
 		for (int i : OsToAdd) {
-			oList.add(i);
+			oList.add(new Position(i));
 		}
 		return this;
 	}
