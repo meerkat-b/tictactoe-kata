@@ -32,12 +32,12 @@ public class SinglePlayerGameEngineShould {
 		computerPlayer = mock(ComputerPlayer.class);
 
 		singlePlayerGameEngine = new SinglePlayerGameEngine
-				(board, humanPlayer, computerPlayer, console, inputHandler);
+				(board, humanPlayer, computerPlayer);
 	}
 
 	@Test public void
 	set_the_player_turn_order_with_player_going_first() {
-		given(inputHandler.getTurnOrder()).willReturn(1);
+		given(humanPlayer.wantToGoFirst()).willReturn(true);
 		given(board.isInPlay()).willReturn(true, true, false);
 		singlePlayerGameEngine.runGame();
 
@@ -49,7 +49,7 @@ public class SinglePlayerGameEngineShould {
 
 	@Test public void
 	set_the_player_turn_order_with_player_going_second() {
-		given(inputHandler.getTurnOrder()).willReturn(2);
+		given(humanPlayer.wantToGoFirst()).willReturn(false);
 		given(board.isInPlay()).willReturn(true, true, false);
 		singlePlayerGameEngine.runGame();
 

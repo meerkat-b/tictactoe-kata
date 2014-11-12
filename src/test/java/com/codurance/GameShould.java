@@ -30,7 +30,7 @@ public class GameShould {
 		inputHandler = mock(InputHandler.class);
 		multiPlayerGameEngine = mock(MultiPlayerGameEngine.class);
 
-		game = new Game(singlePlayerGameEngine, multiPlayerGameEngine, console, inputHandler);
+		game = new Game(singlePlayerGameEngine, multiPlayerGameEngine, inputHandler);
 	}
 
 	@Test public void

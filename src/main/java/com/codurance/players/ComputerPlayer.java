@@ -8,8 +8,6 @@ import com.codurance.gameEngine.markers.Marker;
 import com.codurance.gameEngine.markers.Naught;
 
 public class ComputerPlayer implements Player {
-
-
 	private final Marker O = new Naught();
 	private final Marker X = new Cross();
 	private Marker marker;
@@ -29,6 +27,7 @@ public class ComputerPlayer implements Player {
 		printChosen(position);
 	}
 
+
 	private void printChosen(Position positionToPlay) {
 		console.println("Computer has chosen position ["+(positionToPlay.index)+"]");
 	}
@@ -36,5 +35,11 @@ public class ComputerPlayer implements Player {
 	private void getMarkersFrom(Board board) {
 		marker = board.getCurrentMarker();
 		opposingMarker = (marker.equals(X)) ? O : X;
+	}
+
+	//is the fact that i have to call this a flaw in the design?
+	@Override
+	public boolean wantToGoFirst() {
+		throw new RuntimeException();
 	}
 }

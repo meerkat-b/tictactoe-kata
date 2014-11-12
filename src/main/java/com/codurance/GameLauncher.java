@@ -19,10 +19,10 @@ public class GameLauncher {
 		ComputerPlayer computerPlayer = new ComputerPlayer(console);
 
 		SinglePlayerGameEngine singlePlayerGameEngine = new SinglePlayerGameEngine
-				(board, humanPlayer, computerPlayer, console, inputHandler);
+				(board, humanPlayer, computerPlayer);
 		MultiPlayerGameEngine multiPlayerGameEngine = new MultiPlayerGameEngine
 				(board, humanPlayer, secondHumanPlayer);
 
-		new Game(singlePlayerGameEngine, multiPlayerGameEngine, console, inputHandler).start();
+		new Game(singlePlayerGameEngine, multiPlayerGameEngine, inputHandler).start();
 	}
 }

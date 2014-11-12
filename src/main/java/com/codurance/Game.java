@@ -1,6 +1,5 @@
 package com.codurance;
 
-import com.codurance.io.Console;
 import com.codurance.io.InputHandler;
 import com.codurance.gameEngine.GameEngine;
 import com.codurance.gameEngine.MultiPlayerGameEngine;
@@ -12,13 +11,11 @@ public class Game {
 
 	private SinglePlayerGameEngine singlePlayerGameEngine;
 	private MultiPlayerGameEngine multiPlayerGameEngine;
-	private Console console;
 	private InputHandler inputHandler;
 
-	public Game(SinglePlayerGameEngine singlePlayerGameEngine, MultiPlayerGameEngine multiPlayerGameEngine, Console console, InputHandler inputHandler) {
+	public Game(SinglePlayerGameEngine singlePlayerGameEngine, MultiPlayerGameEngine multiPlayerGameEngine, InputHandler inputHandler) {
 		this.singlePlayerGameEngine = singlePlayerGameEngine;
 		this.multiPlayerGameEngine = multiPlayerGameEngine;
-		this.console = console;
 		this.inputHandler = inputHandler;
 	}
 
@@ -27,9 +24,9 @@ public class Game {
 	}
 
 	private GameEngine gameType() {
-		return inputHandler.getGameType().equals(SINGLE_PLAYER) ?
-				(SinglePlayerGameEngine) singlePlayerGameEngine :
-				(MultiPlayerGameEngine) multiPlayerGameEngine;
+		return inputHandler.getGameType().equals(SINGLE_PLAYER)
+																? singlePlayerGameEngine
+																: multiPlayerGameEngine;
 	}
 
 }

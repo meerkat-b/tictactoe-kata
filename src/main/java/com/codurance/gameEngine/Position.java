@@ -8,10 +8,6 @@ public class Position {
 
 	public int index;
 
-	public void applyOffset() {
-		index += 1;
-	}
-
 	@Override
 	public boolean equals(Object object) {
 		if(object instanceof Position){

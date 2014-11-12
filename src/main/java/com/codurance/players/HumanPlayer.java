@@ -6,6 +6,7 @@ import com.codurance.gameEngine.Position;
 
 public class HumanPlayer implements Player {
 	private InputHandler inputHandler;
+	private final int HUMAN_GOES_FIRST = 1;
 
 	public HumanPlayer(InputHandler inputHandler) {
 		this.inputHandler = inputHandler;
@@ -14,6 +15,12 @@ public class HumanPlayer implements Player {
 	@Override
 	public void play(Board board) {
 		board.play(new Position(inputHandler.getPlayFor(board)));
-		board.printRemainingSpaces();
+	}
+
+	@Override
+	public boolean wantToGoFirst() {
+		return (inputHandler.getTurnOrder() == HUMAN_GOES_FIRST)
+													? true
+													: false;
 	}
 }

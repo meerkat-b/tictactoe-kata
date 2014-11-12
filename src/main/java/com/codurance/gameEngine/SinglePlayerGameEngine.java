@@ -1,27 +1,19 @@
 package com.codurance.gameEngine;
 
-import com.codurance.io.Console;
-import com.codurance.io.InputHandler;
 import com.codurance.players.Player;
 
 public class SinglePlayerGameEngine implements GameEngine {
 
-	private final int HUMAN_GOES_FIRST = 1;
 
-	private Console console;
-	private InputHandler inputHandler;
 	private Board board;
 	private Player humanPlayer;
 	private Player computerPlayer;
 	private Player currentPlayer;
 
-	public SinglePlayerGameEngine(Board board, Player humanPlayer, Player computerPlayer,
-								Console console, InputHandler inputHandler) {
+	public SinglePlayerGameEngine(Board board, Player humanPlayer, Player computerPlayer) {
 		this.board = board;
 		this.humanPlayer = humanPlayer;
 		this.computerPlayer = computerPlayer;
-		this.console = console;
-		this.inputHandler = inputHandler;
 	}
 
 	@Override
@@ -30,19 +22,21 @@ public class SinglePlayerGameEngine implements GameEngine {
 
 		while(board.isInPlay()) {
 			board.printBoard();
-			currentPlayer.play(board);
-			switchPlayers();
+			nextPlayer().play(board);
 		}
 		board.declareWinner();
 	}
 
 	private void setTurnOrder() {
-		currentPlayer = inputHandler.getTurnOrder() == HUMAN_GOES_FIRST ?
-						humanPlayer : computerPlayer;
-
+		currentPlayer = humanPlayer.wantToGoFirst()
+									? computerPlayer
+									: humanPlayer;
 	}
 
-	private void switchPlayers() {
-		currentPlayer = (currentPlayer == humanPlayer) ? computerPlayer : humanPlayer;
+	private Player nextPlayer() {
+		currentPlayer = (currentPlayer == humanPlayer)
+															? computerPlayer
+															: humanPlayer;
+		return currentPlayer;
 	}
 }

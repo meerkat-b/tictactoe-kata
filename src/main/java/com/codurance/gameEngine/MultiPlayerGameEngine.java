@@ -1,15 +1,15 @@
 package com.codurance.gameEngine;
 
-import com.codurance.players.HumanPlayer;
+import com.codurance.players.Player;
 
 public class MultiPlayerGameEngine implements GameEngine {
 
 	private Board board;
-	private HumanPlayer humanPlayer;
-	private HumanPlayer secondHumanPlayer;
-	private HumanPlayer currentPlayer;
+	private Player humanPlayer;
+	private Player secondHumanPlayer;
+	private Player currentPlayer;
 
-	public MultiPlayerGameEngine(Board board, HumanPlayer humanPlayer, HumanPlayer secondHumanPlayer) {
+	public MultiPlayerGameEngine(Board board, Player humanPlayer, Player secondHumanPlayer) {
 		this.board = board;
 		this.humanPlayer = humanPlayer;
 		this.secondHumanPlayer = secondHumanPlayer;
@@ -20,15 +20,15 @@ public class MultiPlayerGameEngine implements GameEngine {
 	public void runGame() {
 		while(board.isInPlay()) {
 			board.printBoard();
-			currentPlayer.play(board);
-			switchPlayers();
+			nextPlayer().play(board);
 		}
 
 		board.declareWinner();
 	}
 
-	private void switchPlayers() {
+	private Player nextPlayer() {
 		currentPlayer = (currentPlayer == humanPlayer) ?
 				secondHumanPlayer : humanPlayer;
+		return currentPlayer;
 	}
 }
