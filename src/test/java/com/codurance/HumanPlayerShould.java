@@ -23,11 +23,13 @@ public class HumanPlayerShould {
 	private Player humanPlayer;
 	private Board board;
 	private InputHandler inputHandler;
+	private Console console;
 
 	@Before
 	public void initialise() {
 		inputHandler = mock(InputHandler.class);
-		board = new Board(new Console());
+		console = mock(Console.class);
+		board = new Board(console);
 		humanPlayer = new HumanPlayer(inputHandler);
 	}
 
@@ -35,23 +37,6 @@ public class HumanPlayerShould {
 	play_the_users_play_onto_the_board() {
 		given(inputHandler.getPlayFor(board)).willReturn(FIVE);
 		humanPlayer.play(board);
-
-		ArrayList expectedSpaces = new ArrayList<Integer>() {{
-			add(1);
-			add(2);
-			add(3);
-			add(4);
-			add(6);
-			add(7);
-			add(8);
-			add(9);
-		}};
-
-		ArrayList<Integer> remainingSpaces = new ArrayList();
-		for (Position position : board.remainingSpaces()) {
-			remainingSpaces.add(position.index);
-		}
-
-		assertThat(remainingSpaces, is(expectedSpaces));
+		verify(console).println("Move played at position [5]");
 	}
 }
