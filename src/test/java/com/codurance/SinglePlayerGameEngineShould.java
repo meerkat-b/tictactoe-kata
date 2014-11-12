@@ -16,8 +16,6 @@ import static org.mockito.Mockito.*;
 
 public class SinglePlayerGameEngineShould {
 
-	private Console console;
-	private InputHandler inputHandler;
 	private Board board;
 	private Player humanPlayer;
 	private Player computerPlayer;
@@ -25,8 +23,6 @@ public class SinglePlayerGameEngineShould {
 
 	@Before
 	public void initialise() {
-		console = mock(Console.class);
-		inputHandler = mock(InputHandler.class);
 		board = mock(Board.class);
 		humanPlayer = mock(HumanPlayer.class);
 		computerPlayer = mock(ComputerPlayer.class);
